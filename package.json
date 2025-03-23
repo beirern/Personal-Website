@@ -1,0 +1,27 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "blog",
+    "markdown",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "Nicola Beirer's Personal Website",
+  "dependencies": {
+    "express": "^4.21.2",
+    "fs-extra": "^11.3.0",
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.11.1",
+    "marked": "^15.0.7"
+  },
+	"devDependencies": {
+		"nodemon": "^3.1.9"
+	}
+}
