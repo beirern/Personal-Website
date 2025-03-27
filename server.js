@@ -155,23 +155,26 @@ app.get('/about', (req, res) => {
       <div class="about-content">
         <img src="/images/profile.jpg" alt="Profile Image" class="profile-img">
         <p>
-          Hello! I'm a passionate developer who loves building things with code. This blog is where I share my projects, 
-          what I've learned along the way, and helpful tutorials for other developers.
+          Hello! I'm a passionate developer who loves building things with code. This blog is where I share my projects,
+          and what I've learned along the way. You will also find random posts about philosophy and my other thoughts.
         </p>
         <p>
           My main areas of interest include:
         </p>
         <ul>
-          <li>Frontend Development (JavaScript, React)</li>
-          <li>Backend Development (Node.js, Express)</li>
-          <li>Data Visualization</li>
-          <li>Problem Solving & Algorithms</li>
+          <li>System Architecture: going from code on your laptop to others!</li>
+          <li>Containerization (Docker & Kubernetes)</li>
+          <li>Running things on a Unix Server</li>
+          <li>Random fun projects!</li>
         </ul>
+        <br>
         <p>
-          When I'm not coding, you can find me hiking, reading, or experimenting with new technologies.
+          When I'm not coding, you can find me doing jiu-jitsu, muay thai, cycling, playing sports, flying planes or
+          philosophizing!
+          At least this is what I was doing in San Francisco :)
         </p>
         <p>
-          Feel free to reach out if you want to collaborate or have any questions about my projects!
+          Feel free to reach out if you want to collaborate or have any questions about my projects or thoughts!
         </p>
       </div>
     `);
