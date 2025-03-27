@@ -34,7 +34,6 @@ A lightweight blog for your coding projects, built with Node.js and Express, wit
    title: Your Post Title
    date: 2025-03-22
    tags: [tag1, tag2]
-   categories: [category]
    ---
    ```
 3. Write your post content in Markdown format

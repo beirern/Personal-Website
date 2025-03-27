@@ -41,7 +41,6 @@ function getBlogPosts() {
       title: data.title,
       date: data.date,
       tags: data.tags || [],
-      categories: data.categories || [],
       excerpt: data.excerpt || content.slice(0, 200) + '...',
       content: content
     };
