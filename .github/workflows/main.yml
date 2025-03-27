@@ -26,7 +26,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: SSH into EC2 Machine and Run new Docker Image
+      - name: SSH into EC2 Machine and Restart website
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           HOSTNAME: nicolabeirer.com
