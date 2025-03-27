@@ -36,5 +36,5 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} ' bash -lc "
             cd /home/ubuntu/Personal-Website
             git pull origin main
-            pm2 restart 0
+            /home/ubuntu/.nvm/versions/node/v20.11.0/bin/pm2 restart 0
             '"
