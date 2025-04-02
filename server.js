@@ -4,6 +4,9 @@ const path = require('path');
 const marked = require('marked');
 const matter = require('gray-matter');
 const highlightjs = require('highlight.js');
+const pug = require('pug');
+
+console.time('Startup tasks');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,10 +23,12 @@ marked.setOptions({
 app.use(express.static('public'));
 
 // Set view engine (using plain HTML)
+app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
-app.engine('html', require('fs').readFileSync);
 
+console.timeEnd('Startup tasks');
+
+console.time('Getting blog posts');
 // Helper function to get all blog posts
 function getBlogPosts() {
   const postsDirectory = path.join(__dirname, 'posts');
@@ -49,37 +54,26 @@ function getBlogPosts() {
   // Sort by date, newest first
   return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
+console.timeEnd('Getting blog posts');
+
+// Pre-compile templates
+const templates = {
+  home: pug.compileFile(path.join(__dirname, 'views', 'home.pug')),
+  post: pug.compileFile(path.join(__dirname, 'views', 'post.pug')),
+  homeLayout: pug.compileFile(path.join(__dirname, 'views', 'home-layout.pug')),
+  about: pug.compileFile(path.join(__dirname, 'views', 'about.pug'))
+};
+
+// Read all files on startup to avoid doing it when trying to load a page
+const blogPosts = getBlogPosts();
+const homeHTML = templates.home({
+  posts: blogPosts
+});
+const aboutHTML = templates.about({});
 
 // Home page route
 app.get('/', (req, res) => {
-  const posts = getBlogPosts();
-  const template = fs.readFileSync(path.join(__dirname, 'templates', 'home.html'), 'utf8');
-
-  // Generate post HTML
-  const postsHTML = posts.map(post => {
-    return `
-      <article class="post-preview">
-        <h2><a href="/post/${post.slug}">${post.title}</a></h2>
-        <div class="post-meta">
-          <span class="date">${new Date(post.date).toLocaleDateString()}</span>
-          ${post.tags.map(tag => `<span class="tag"><a href="/tag/${tag}">#${tag}</a></span>`).join(' ')}
-        </div>
-        <div class="excerpt">${post.excerpt}</div>
-        <a href="/post/${post.slug}" class="read-more">Read More</a>
-      </article>
-    `;
-  }).join('');
-
-  // Replace template placeholders
-  const html = template
-    .replace('{{content}}', `
-      <h1>My Coding Projects</h1>
-      <div class="posts-container">
-        ${postsHTML}
-      </div>
-    `);
-
-  res.send(html);
+  res.send(homeHTML);
 });
 
 // Individual post route
@@ -95,14 +89,14 @@ app.get('/post/:slug', (req, res) => {
   const { data, content } = matter(fileContent);
   const htmlContent = marked.parse(content);
 
-  const template = fs.readFileSync(path.join(__dirname, 'templates', 'post.html'), 'utf8');
-  const html = template
-    .replace('{{title}}', data.title)
-    .replace('{{date}}', new Date(data.date).toLocaleDateString())
-    .replace('{{content}}', htmlContent)
-    .replace('{{tags}}', (data.tags || []).map(tag =>
+  const html = templates.post({
+    title: data.title,
+    date: new Date(data.date).toLocaleDateString(),
+    content: htmlContent,
+    tags: (data.tags || []).map(tag =>
       `<span class="tag"><a href="/tag/${tag}">#${tag}</a></span>`
-    ).join(' '));
+    ).join(' ')
+  });
 
   res.send(html);
 });
@@ -110,76 +104,23 @@ app.get('/post/:slug', (req, res) => {
 // Tag page route
 app.get('/tag/:tag', (req, res) => {
   const { tag } = req.params;
-  const posts = getBlogPosts().filter(post =>
+  const posts = blogPosts.filter(post =>
     post.tags && post.tags.includes(tag)
   );
 
-  const template = fs.readFileSync(path.join(__dirname, 'templates', 'home.html'), 'utf8');
-
-  // Generate post HTML
-  const postsHTML = posts.map(post => {
-    return `
-      <article class="post-preview">
-        <h2><a href="/post/${post.slug}">${post.title}</a></h2>
-        <div class="post-meta">
-          <span class="date">${new Date(post.date).toLocaleDateString()}</span>
-          ${post.tags.map(t => `<span class="tag"><a href="/tag/${t}">#${t}</a></span>`).join(' ')}
-        </div>
-        <div class="excerpt">${post.excerpt}</div>
-        <a href="/post/${post.slug}" class="read-more">Read More</a>
-      </article>
-    `;
-  }).join('');
-
-  // Replace template placeholders
-  const html = template
-    .replace('{{title}}', `Posts tagged with #${tag}`)
-    .replace('{{content}}', `
-      <h1>Posts tagged with #${tag}</h1>
-      <div class="posts-container">
-        ${postsHTML}
-      </div>
-    `);
+  const html = templates.post({
+    title: `Posts tagged with #${tag}`,
+    content: templates.home({
+      posts: posts
+    })
+  });
 
   res.send(html);
 });
 
 // About page route
 app.get('/about', (req, res) => {
-  const template = fs.readFileSync(path.join(__dirname, 'templates', 'home.html'), 'utf8');
-
-  const html = template
-    .replace('{{title}}', 'About Me')
-    .replace('{{content}}', `
-      <h1>About Me</h1>
-      <div class="about-content">
-        <img src="/images/profile.jpg" alt="Profile Image" class="profile-img">
-        <p>
-          Hello! I'm a passionate developer who loves building things with code. This blog is where I share my projects,
-          and what I've learned along the way. You will also find random posts about philosophy and my other thoughts.
-        </p>
-        <p>
-          My main areas of interest include:
-        </p>
-        <ul>
-          <li>System Architecture: going from code on your laptop to others!</li>
-          <li>Containerization (Docker & Kubernetes)</li>
-          <li>Running things on a Unix Server</li>
-          <li>Random fun projects!</li>
-        </ul>
-        <br>
-        <p>
-          When I'm not coding, you can find me doing jiu-jitsu, muay thai, cycling, playing sports, flying planes or
-          philosophizing!
-          At least this is what I was doing in San Francisco :)
-        </p>
-        <p>
-          Feel free to reach out if you want to collaborate or have any questions about my projects or thoughts!
-        </p>
-      </div>
-    `);
-
-  res.send(html);
+  res.send(aboutHTML);
 });
 
 // Start the server
