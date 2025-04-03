@@ -17,12 +17,22 @@ on:
 env:
   AWS_REGION: us-west-1
   AWS_ACCOUNT_ID: 540222592911
+  CLICOLOR: 1
 
 permissions:
   id-token: write   # This is required for requesting the JWT
   contents: write    # This is required for actions/checkout
 
+
 jobs:
+  spelling:
+    name: Spell Check with Typos
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Actions Repository
+      uses: actions/checkout@v4
+    - name: Spell Check Repo
+      uses: crate-ci/typos@v1.31.1
   deploy:
     runs-on: ubuntu-latest
     steps:
