@@ -35,6 +35,7 @@ jobs:
       uses: crate-ci/typos@v1.31.1
   deploy:
     runs-on: ubuntu-latest
+    needs: spelling
     steps:
       - name: SSH into EC2 Machine and Restart website
         env:
