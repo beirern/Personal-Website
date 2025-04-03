@@ -4,7 +4,6 @@ const path = require('path');
 const marked = require('marked');
 const matter = require('gray-matter');
 const highlightjs = require('highlight.js');
-const pug = require('pug');
 
 console.time('Startup tasks');
 
@@ -56,24 +55,14 @@ function getBlogPosts() {
 }
 console.timeEnd('Getting blog posts');
 
-// Pre-compile templates
-const templates = {
-  home: pug.compileFile(path.join(__dirname, 'views', 'home.pug')),
-  post: pug.compileFile(path.join(__dirname, 'views', 'post.pug')),
-  homeLayout: pug.compileFile(path.join(__dirname, 'views', 'home-layout.pug')),
-  about: pug.compileFile(path.join(__dirname, 'views', 'about.pug'))
-};
-
 // Read all files on startup to avoid doing it when trying to load a page
 const blogPosts = getBlogPosts();
-const homeHTML = templates.home({
-  posts: blogPosts
-});
-const aboutHTML = templates.about({});
 
 // Home page route
 app.get('/', (req, res) => {
-  res.send(homeHTML);
+  res.render('home', {
+    posts: blogPosts
+  });
 });
 
 // Individual post route
@@ -89,7 +78,7 @@ app.get('/post/:slug', (req, res) => {
   const { data, content } = matter(fileContent);
   const htmlContent = marked.parse(content);
 
-  const html = templates.post({
+  res.render('post', {
     title: data.title,
     date: new Date(data.date).toLocaleDateString(),
     content: htmlContent,
@@ -97,8 +86,6 @@ app.get('/post/:slug', (req, res) => {
       `<span class="tag"><a href="/tag/${tag}">#${tag}</a></span>`
     ).join(' ')
   });
-
-  res.send(html);
 });
 
 // Tag page route
@@ -120,7 +107,7 @@ app.get('/tag/:tag', (req, res) => {
 
 // About page route
 app.get('/about', (req, res) => {
-  res.send(aboutHTML);
+  res.render('about');
 });
 
 // Start the server
