@@ -7,7 +7,7 @@ excerpt: I try to use AI For the first time to see how it builds and designs a p
 
 ## Some Background
 
-For a while I've wanted to have a personal website where I can write about my projects and general thoughts. Whether the world needs this is questionable but this last week I've decided to do it. Mostly because I also decided I would leave my job and this website might help with a new one but that's a story for a different post. More pertinant is that I realized that this would be a great use of AI! I've worked on websites before and have experience deploying them so I understand how to design it and just need a worker to execute my vision: the perfect use case for AI!
+For a while I've wanted to have a personal website where I can write about my projects and general thoughts. Whether the world needs this is questionable but this last week I've decided to do it. Mostly because I also decided I would leave my job and this website might help with a new one but that's a story for a different post. More pertinent is that I realized that this would be a great use of AI! I've worked on websites before and have experience deploying them so I understand how to design it and just need a worker to execute my vision: the perfect use case for AI!
 
 My vision was pretty simple: A website that would just serve blog posts, use templates since it seemed to me that that would be an easy way to add more content and keep the look consistent, and not be built on React. Personal project to me should avoid complex optimizations and unnecessary complexity as much as possible. My projects tend to be worked on in spurts of inspiration/motivation/free time and the absolute worst thing that can happen is opening a project and it not working. I am proud that Lakubot has running for multiple years and everytime I open it up it's worked and I can just add features. In my experience React is overly complicated and will lead to problemns in the future though I'm also happy to concede that this might be a skill issue.
 
@@ -38,11 +38,11 @@ At this point I poked around the frameworks and took a fancy to Hugo. The exampl
 >Can you code up a website that uses PaperMod as the theme and write an example blog post. If I run hugo server I want to be able to see this website on my computer on whatever port Hugo decides to use
 
 
-Claude then proceded to make a bunch of files to do just this. I have to say I was very impressed, I hadn't seen ChatGPT have this kind of functionality and I then took all the files it had created and copied them over... and of course this also did not work
+Claude then proceeded to make a bunch of files to do just this. I have to say I was very impressed, I hadn't seen ChatGPT have this kind of functionality and I then took all the files it had created and copied them over... and of course this also did not work
 
 >I just get a blank page and no html when I go to localhost:1313
 
-Claude and I proceded to go back and forth trying to fix the issue but get no where. At this point I admit defeat. As I mentioned earlier what I value in personal projects is minimial complexity and being able to fully understand my codebase, so Hugo seemed like it wouldn't be a good choice (it definetly wasn't me being lazy and not wanting to dive into Hugo).
+Claude and I proceeded to go back and forth trying to fix the issue but get no where. At this point I admit defeat. As I mentioned earlier what I value in personal projects is minimal complexity and being able to fully understand my codebase, so Hugo seemed like it wouldn't be a good choice (it definitely wasn't me being lazy and not wanting to dive into Hugo).
 
 >Honestly I don't want to use something like Hugo because it's difficult for me to understand. I would rather just write the website without using heavy frameworks. Let's not even worry about a DB and just make a website that uses Node for the backend but otherwise isn't tied to a framework.
 
@@ -50,7 +50,7 @@ Claude whipped up [this commit](https://github.com/beirern/Personal-Website/comm
 
 ## AI Can Make Some Interesting Design Decisions
 
-First off I will say that Claude did get something that worked, and something that I could use to create more blog posts. It is really impressive and really cool that in like 5 minutes I had a website and more impressively a website that wasn't created via a CLI tool that asked a bunch of y/n questions on what I wanted. It also went above and beyond and added tags, an "exerpt" concept where each post has a description or exerpt from it, and tags, and not only tags but you can filter on tags!! I didn't even ask for that yet **it works**. This website probably isn't super unique but Claude *more or less* built it the way I wanted it. However, it's worth taking a look at some of the weird or not great things that it decided to do. You'll probably notice a general theme.
+First off I will say that Claude did get something that worked, and something that I could use to create more blog posts. It is really impressive and really cool that in like 5 minutes I had a website and more impressively a website that wasn't created via a CLI tool that asked a bunch of y/n questions on what I wanted. It also went above and beyond and added tags, an "excerpt" concept where each post has a description or excerpt from it, and tags, and not only tags but you can filter on tags!! I didn't even ask for that yet **it works**. This website probably isn't super unique but Claude *more or less* built it the way I wanted it. However, it's worth taking a look at some of the weird or not great things that it decided to do. You'll probably notice a general theme.
 
 ### 1. Templating was done via `replace()`
 
@@ -95,7 +95,7 @@ Like I guess this is templating? I never used a templating engine in JS so I tho
 
 ### 2. Creating a directory it did not use
 
-One of the first things I noticed when perusing the code was that there was a `views/` directory that was empty and I didn't notice the one time it was referenced. I [commited the directory](https://github.com/beirern/Personal-Website/commit/09fd3dcb66a972dc102e92e72d1aeb54305fcd6a) but had no idea why. If you understand templating in JS you might already know what was going on.
+One of the first things I noticed when perusing the code was that there was a `views/` directory that was empty and I didn't notice the one time it was referenced. I [committed the directory](https://github.com/beirern/Personal-Website/commit/09fd3dcb66a972dc102e92e72d1aeb54305fcd6a) but had no idea why. If you understand templating in JS you might already know what was going on.
 
 ### 3. It set options in Express that it did not use
 
@@ -157,7 +157,7 @@ I had used all the replies in one chat with Claude so I was on my own. I proceed
 
 Copilot helped with making the `.pug` files and switching the endpoints to use `express` + `pug` to serve templates. This is now where we are at [now](https://github.com/beirern/Personal-Website/commit/bd719c165f4f00bd99f63a37e63392af8ecff332). 
 
-To tackle the slowness I moved the logic to read blog posts to do it on startup rather than on each endpoint. That and the templating sped things up and now we get quite fast loading times of tenths of a milisecond.
+To tackle the slowness I moved the logic to read blog posts to do it on startup rather than on each endpoint. That and the templating sped things up and now we get quite fast loading times of tenths of a millisecond.
 
 ## Final Thoughts
 
