@@ -97,14 +97,10 @@ app.get('/tag/:tag', (req, res) => {
     post.tags && post.tags.includes(tag)
   );
 
-  const html = templates.post({
-    title: `Posts tagged with #${tag}`,
-    content: templates.home({
-      posts: posts
-    })
+  res.render('home', {
+    posts: posts,
+    title: `Posts tagged with #${tag}`
   });
-
-  res.send(html);
 });
 
 // About page route
