@@ -40,12 +40,14 @@ function getBlogPosts() {
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContent);
 
+    const excerpt = data.excerpt ? marked.parse(data.excerpt) : content.slice(0, 200) + '...';
+
     return {
       slug: filename.replace('.md', ''),
       title: data.title,
       date: data.date,
       tags: data.tags || [],
-      excerpt: data.excerpt || content.slice(0, 200) + '...',
+      excerpt: excerpt,
       content: content
     };
   });

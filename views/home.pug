@@ -11,5 +11,5 @@ block content
           each tag in post.tags
             span.tag
               a(href=`/tag/${tag}`) ##{tag}
-        .excerpt= post.excerpt
+        .excerpt!= post.excerpt
         a.read-more(href=`/post/${post.slug}`) Read More
