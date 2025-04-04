@@ -1,6 +1,6 @@
 ---
 title: If You Like this Website then Claude 3.7 Can Make It For You Too
-date: 2025-03-26
+date: 2025-04-02
 tags: [AI]
 excerpt: I try to use AI For the first time to see how it builds and designs a project from the beginning. Here are my takeaways and thoughts
 ---
