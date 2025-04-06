@@ -3,6 +3,7 @@ title: I've Been Part of a Startup and I Am Not a Millionaire
 date: 2025-04-04
 tags: [UW, startup, avepass]
 excerpt: When I was at the University of Washington I had the opportunity to work with some friends on a startup app that offered food delivery. It ended up dying and I made no money, so why did I do it, what did I learn, and would I do it again?
+draft: true
 ---
 
 It's 2019: I am in college at the University of Washington without a major declared and a pipe dream of getting into the computer science program. I knew I wanted to go into Software Engineering but wasn't able to get into the program directly out of high school. I was in the same position as literally hundreds of other students competing for the handful of spots that were left for students looking to transfer into the program. I didn't have any projects under my belt, just code from classwork and my GPA was good but in such a competitive environment not good enough to be confident about getting into the program. What to do?

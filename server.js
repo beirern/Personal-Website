@@ -47,13 +47,16 @@ function getBlogPosts() {
       title: data.title,
       date: data.date,
       tags: data.tags || [],
+      draft: data.draft || false,
       excerpt: excerpt,
       content: content
     };
   });
 
+  const finishedPosts = posts.filter(post => !post.draft); // Filter out posts that are drafts
+
   // Sort by date, newest first
-  return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  return finishedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 console.timeEnd('Getting blog posts');
 
@@ -106,6 +109,26 @@ app.get('/tag/:tag', (req, res) => {
 // About page route
 app.get('/about', (req, res) => {
   res.render('about');
+});
+
+// Default route for 404 errors
+app.use(function(req, res, next) {
+  res.status(404);
+
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('404');
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.json({ error: 'Not found' });
+    return;
+  }
+
+  // default to plain-text. send()
+  res.type('txt').send('Not found');
 });
 
 // Start the server
