@@ -53,6 +53,11 @@ function getBlogPosts() {
     };
   });
 
+  // Show drafts in development mode and sort by date
+  if (process.env.NODE_ENV !== 'production') {
+    return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+
   const finishedPosts = posts.filter(post => !post.draft); // Filter out posts that are drafts
 
   // Sort by date, newest first
