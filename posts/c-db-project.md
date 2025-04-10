@@ -1,5 +1,5 @@
 ---
-title: I Purchased a C Course to Fix an Insecurity
+title: I Purchased a C Course to Address an Insecurity
 date: 2025-04-09
 tags: [C, database]
 excerpt: My First C Project is an on Disk Employee Database. Although it wasn't the most complicated project it left me with some great lessons.
