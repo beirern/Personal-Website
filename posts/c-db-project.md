@@ -1,11 +1,11 @@
 ---
-title: "It's Fun to Be Competent: Learnings from Going Low Level"
+title: I Purchase A C Course to Fix an Insecurity
 date: 2025-04-09
 tags: [C, database]
 excerpt: My First C Project is an on Disk Employee Database. Although it wasn't the most complicated project it left me with some great lessons.
 ---
 
-# I Purchase A C Course to Fix an Insecurity
+# My Low Level Experience
 
 When I graduated from the University of Washington I received a Bachelors degree in *Applied Computational and Mathematical Studies* w/ a concentration in *Mathematical Economics and Quantitative Finance*. I don't say this to brag about how long my degree is but to say that it wasn't a Computer Science degree. My software experience came from "higher level" CS courses like Data Structures and Algorithms, data science, or ML and projects that I had worked on in my free time. The languages I knew out of college were Java, Python, R (eww), and Javascript. Note the lack of C/C++! In the summer quarter of my 1st year I took a class that taught us some very basic C to explain how computer systems worked, i.e. we would be given projects where we wrote a few functions and the point was to be able to understand every line of C code and what was going on in the computer; if you've graduated with a CS degree then think of assignments like "bomb defusal" or bitwise operations. In my internships I never needed to know C/C++ but I did feel a little weird about not not having this experience that a lot of other people I knew had.
 
