@@ -8,7 +8,7 @@ draft: true
 
 # Reflection
 
-It's interesting to think about life and the oppurtunities we had and where we would be without them. I look at the software engineering industry/space and it seems like Hell for new grads. Especially with AI, the skills that would have landed you an internship when I was in college is now completely obsolete. I literally learned software engineering through frameworks like react, being a framework engineer is what AI is best at so now the experience would be somewhat pointless.
+It's interesting to think about life and the opportunities we had and where we would be without them. I look at the software engineering industry/space and it seems like Hell for new grads. Especially with AI, the skills that would have landed you an internship when I was in college is now completely obsolete. I literally learned software engineering through frameworks like react, being a framework engineer is what AI is best at so now the experience would be somewhat pointless.
 
 In my 2nd year of college I was searching for an internship. I ended up applying to Apptio Inc. (now an IBM company<sup>TM</sup>). I don't remember how I found out about the company, it might have been just a cold application that somehow ended up with a response but I ended up interviewing for them.
 
