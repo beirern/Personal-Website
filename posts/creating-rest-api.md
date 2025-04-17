@@ -2,6 +2,7 @@
 title: Creating a RESTful API with Node.js and Express
 date: 2025-03-15
 tags: [javascript, nodejs, backend, express]
+draft: true
 ---
 
 # Creating a RESTful API with Node.js and Express

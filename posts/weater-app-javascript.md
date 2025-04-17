@@ -2,6 +2,7 @@
 title: Building a Weather App with JavaScript
 date: 2025-03-20
 tags: [javascript, api, frontend]
+draft: true
 ---
 
 # Building a Weather App with JavaScript
