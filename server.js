@@ -27,7 +27,6 @@ app.set('views', path.join(__dirname, 'views'));
 
 console.timeEnd('Startup tasks');
 
-console.time('Getting blog posts');
 // Helper function to get all blog posts
 function getBlogPosts() {
   const postsDirectory = path.join(__dirname, 'posts');
@@ -48,6 +47,7 @@ function getBlogPosts() {
       date: data.date,
       tags: data.tags || [],
       draft: data.draft || false,
+      invisible: data.invisible || false,
       excerpt: excerpt,
       content: content
     };
@@ -58,15 +58,59 @@ function getBlogPosts() {
     return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
   }
 
-  const finishedPosts = posts.filter(post => !post.draft); // Filter out posts that are drafts
+  // Filter out drafts and invisible posts
+  const finishedPosts = posts.filter(post => !post.draft && !post.invisible);
 
   // Sort by date, newest first
   return finishedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
-console.timeEnd('Getting blog posts');
+
+// Helper function to get all poems
+function getPoems() {
+  const poemsDirectory = path.join(__dirname, 'poems');
+  const poemFiles = fs.readdirSync(poemsDirectory).filter(file =>
+    file.endsWith('.md')
+  );
+
+  const poems = poemFiles.map(filename => {
+    const filePath = path.join(poemsDirectory, filename);
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const { data, content } = matter(fileContent);
+
+    const excerpt = data.excerpt ? marked.parse(data.excerpt) : content.slice(0, 200) + '...';
+
+    return {
+      slug: filename.replace('.md', ''),
+      title: data.title,
+      date: data.date,
+      tags: data.tags || [],
+      draft: data.draft || false,
+      invisible: data.invisible || false,
+      excerpt: excerpt,
+      content: content
+    };
+  });
+
+  // Show drafts in development mode and sort by date
+  if (process.env.NODE_ENV !== 'production') {
+    return poems.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+
+  // Filter out drafts and invisible poems
+  const finishedPoems = poems.filter(poem => !poem.draft && !poem.invisible);
+
+  // Sort by date, newest first
+  return finishedPoems.sort((a, b) => new Date(b.date) - new Date(a.date));
+}
 
 // Read all files on startup to avoid doing it when trying to load a page
+console.time('Getting blog posts');
 const blogPosts = getBlogPosts();
+console.timeEnd('Getting blog posts');
+
+console.time('Getting poems');
+const poems = getPoems();
+console.timeEnd('Getting poems');
 
 // Home page route
 app.get('/', (req, res) => {
@@ -114,6 +158,36 @@ app.get('/tag/:tag', (req, res) => {
 // About page route
 app.get('/about', (req, res) => {
   res.render('about');
+});
+
+// Poems page route
+app.get('/poems', (req, res) => {
+  res.render('poems', {
+    poems: poems
+  });
+});
+
+// Individual poem route
+app.get('/poem/:slug', (req, res) => {
+  const { slug } = req.params;
+  const filePath = path.join(__dirname, 'poems', `${slug}.md`);
+
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).send('Poem not found');
+  }
+
+  const fileContent = fs.readFileSync(filePath, 'utf8');
+  const { data, content } = matter(fileContent);
+  const htmlContent = marked.parse(content);
+
+  res.render('poem', {
+    title: data.title,
+    date: new Date(data.date).toLocaleDateString(),
+    content: htmlContent,
+    tags: (data.tags || []).map(tag =>
+      `<span class="tag"><a href="/tag/${tag}">#${tag}</a></span>`
+    ).join(' ')
+  });
 });
 
 // Default route for 404 errors
