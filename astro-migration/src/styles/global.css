@@ -1,0 +1,206 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header styles */
+header {
+  margin-bottom: 40px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.site-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+/* Main content styles */
+main {
+  min-height: 70vh;
+}
+
+h1 {
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+}
+
+h2 {
+  margin: 30px 0 15px;
+  font-size: 1.8rem;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+/* Post styles */
+.post-preview {
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #eee;
+}
+
+.post-preview h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.post-meta {
+  margin-bottom: 15px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.date {
+  margin-right: 15px;
+}
+
+.tag {
+  margin-right: 10px;
+}
+
+.tag a {
+  color: #0366d6;
+}
+
+.excerpt {
+  margin-bottom: 15px;
+}
+
+.read-more {
+  display: inline-block;
+  font-weight: 500;
+}
+
+/* Individual post page */
+.post-header {
+  margin-bottom: 40px;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.post-content ul,
+.post-content ol {
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.post-content li {
+  margin-bottom: 5px;
+}
+
+.post-content img {
+  max-width: 100%;
+  margin: 20px 0;
+}
+
+/* Blockquote styles */
+blockquote {
+  background-color: #f8f9fa;
+  border-left: 4px solid #dee2e6;
+  margin: 1.5em 0;
+  padding: 1em 1.5em;
+  font-family: "Georgia", serif;
+  font-style: italic;
+  color: #495057;
+}
+
+blockquote p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Code highlighting */
+pre {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #f6f8fa;
+  overflow-x: auto;
+}
+
+code {
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9em;
+}
+
+/* Footer styles */
+footer {
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  color: #666;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    margin-top: 10px;
+  }
+
+  .nav-links li:first-child {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostPreview from '../../components/PostPreview.astro';
+
+export async function getStaticPaths() {
+	const allPosts = await getCollection('posts');
+	const isDev = import.meta.env.DEV;
+	
+	const visiblePosts = allPosts.filter(post => 
+		isDev || (!post.data.draft && !post.data.invisible)
+	);
+	
+	const uniqueTags = [...new Set(visiblePosts.flatMap(post => post.data.tags))];
+	
+	return uniqueTags.map((tag) => {
+		const filteredPosts = visiblePosts
+			.filter(post => post.data.tags.includes(tag))
+			.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+		
+		return {
+			params: { tag },
+			props: { posts: filteredPosts },
+		};
+	});
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout title={`Posts tagged with #${tag} - Nicola Beirer's Blog`}>
+	<h1>Posts tagged with #{tag}</h1>
+	<div class="posts-container">
+		{posts.map((post) => (
+			<PostPreview post={post} />
+		))}
+	</div>
+</BaseLayout>

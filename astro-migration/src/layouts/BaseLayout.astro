@@ -1,0 +1,47 @@
+---
+export interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Nicola Beirer's Personal Website" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<nav>
+					<a class="site-title" href="/">Nicola Beirer's Blog</a>
+					<ul class="nav-links">
+						<li><a href="/">Home</a></li>
+						<li><a href="/poems">Poems</a></li>
+						<li><a href="/about">About</a></li>
+						<li><a href="https://github.com/beirern" target="_blank">GitHub</a></li>
+						<li><a href="https://www.linkedin.com/in/nicolabeirer/" target="_blank">LinkedIn</a></li>
+						<li><a href="https://github.com/beirern/Personal-Website" target="_blank">Source Code</a></li>
+					</ul>
+				</nav>
+			</header>
+			<main>
+				<slot />
+			</main>
+		</div>
+		<style>
+			html {
+				font-family: system-ui, sans-serif;
+			}
+		</style>
+		<style is:global>
+			@import '../styles/global.css';
+		</style>
+	</body>
+</html>
