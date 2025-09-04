@@ -5,7 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="About - Nicola Beirer's Blog">
 	<h1>About Me</h1>
 	<div class="about-content">
-		<img class="profile-img" src="/images/profile.jpg" alt="Profile Image" />
+		<img class="profile-img" src={`${import.meta.env.BASE_URL}/images/profile.jpg`} alt="Profile Image" />
 		<p>Hello! I'm a passionate developer who loves building things with code. This blog is where I share my projects, and what I've learned along the way. You will also find random posts about philosophy and my other thoughts.</p>
 		<p>My main areas of interest include:</p>
 		<ul>
