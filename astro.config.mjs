@@ -7,7 +7,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://beirern.github.io',
-	base: '/',
+	base: '/Personal-Website/',
 	integrations: [mdx(), sitemap()],
 	markdown: {
 		syntaxHighlight: 'shiki',
