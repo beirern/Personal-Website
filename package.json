@@ -1,28 +1,28 @@
 {
-  "name": "personal-website",
-  "version": "1.0.0",
-  "main": "server.js",
+  "name": "astro-migration",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "start": "NODE_ENV=production node server.js",
-    "dev": "NODE_ENV=development nodemon -e js,pug,md server.js"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "test": "vitest",
+    "test:e2e": "playwright test",
+    "test:install": "playwright install",
+    "build:github": "astro build --site https://beirern.github.io --base /"
   },
-  "keywords": [
-    "blog",
-    "markdown",
-    "nodejs"
-  ],
-  "author": "",
-  "license": "ISC",
-  "description": "Nicola Beirer's Personal Website",
   "dependencies": {
-    "express": "^4.21.2",
-    "fs-extra": "^11.3.0",
-    "gray-matter": "^4.0.3",
-    "highlight.js": "^11.11.1",
-    "marked": "^15.0.7",
-    "pug": "^3.0.3"
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.3.4",
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.5.1",
+    "astro": "^5.13.5",
+    "sharp": "^0.34.2",
+    "typescript": "^5.9.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "@playwright/test": "^1.55.0",
+    "vitest": "^3.2.4"
   }
 }
