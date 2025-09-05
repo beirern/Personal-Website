@@ -1,45 +1,28 @@
 ---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_DESCRIPTION } from '../consts';
+
 export interface Props {
 	title: string;
+	description?: string;
+	image?: import('astro').ImageMetadata;
 }
 
-const { title } = Astro.props;
+const { title, description = SITE_DESCRIPTION, image } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Nicola Beirer's Personal Website" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<BaseHead title={title} description={description} image={image} />
 	</head>
 	<body>
-		<div class="container">
-			<header>
-				<nav>
-					<a class="site-title" href="/">Nicola Beirer's Blog</a>
-					<ul class="nav-links">
-						<li><a href="/">Home</a></li>
-						<li><a href="/about">About</a></li>
-						<li><a href="https://github.com/beirern" target="_blank">GitHub</a></li>
-						<li><a href="https://www.linkedin.com/in/nicolabeirer/" target="_blank">LinkedIn</a></li>
-					</ul>
-				</nav>
-			</header>
-			<main>
-				<slot />
-			</main>
-		</div>
-		<style>
-			html {
-				font-family: system-ui, sans-serif;
-			}
-		</style>
-		<style is:global>
-			@import '../styles/global.css';
-		</style>
+		<Header />
+		<main>
+			<slot />
+		</main>
+		<Footer />
 	</body>
 </html>

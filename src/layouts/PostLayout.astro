@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 
 export interface Props {
 	title: string;
@@ -8,27 +9,143 @@ export interface Props {
 }
 
 const { title, date, tags } = Astro.props;
-
-function formatDate(date: Date) {
-	return new Intl.DateTimeFormat('en-US').format(date);
-}
 ---
 
 <BaseLayout title={title}>
-	<article class="post">
-		<header class="post-header">
-			<h1>{title}</h1>
-			<div class="post-meta">
-				<span class="date">{formatDate(date)}</span>
-				{tags.map((tag) => (
-					<span class="tag">
-						<a href={`/tags/${tag}`}>#{tag}</a>
-					</span>
-				))}
+	<div class="container">
+		<article class="post">
+			<header class="post-header">
+				<h1>{title}</h1>
+				<div class="post-meta">
+					<FormattedDate date={date} />
+					{tags.map((tag) => (
+						<span class="tag">
+							<a href={`/tags/${tag}`}>#{tag}</a>
+						</span>
+					))}
+				</div>
+			</header>
+			<div class="post-content">
+				<slot />
 			</div>
-		</header>
-		<div class="post-content">
-			<slot />
-		</div>
-	</article>
+		</article>
+	</div>
 </BaseLayout>
+
+<style>
+	.container {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 2em 1em;
+	}
+	
+	.post {
+		max-width: 100%;
+	}
+	
+	.post-header {
+		margin-bottom: 2em;
+		padding-bottom: 1em;
+		border-bottom: 1px solid #eee;
+	}
+	
+	h1 {
+		margin: 0 0 0.5em 0;
+		font-size: 2.5rem;
+		color: #333;
+		line-height: 1.2;
+	}
+	
+	.post-meta {
+		color: #666;
+		font-size: 0.95rem;
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		flex-wrap: wrap;
+	}
+	
+	.tag {
+		display: inline-block;
+	}
+	
+	.tag a {
+		color: #0366d6;
+		text-decoration: none;
+		font-size: 0.9rem;
+	}
+	
+	.tag a:hover {
+		text-decoration: underline;
+	}
+	
+	.post-content {
+		line-height: 1.7;
+		color: #444;
+	}
+	
+	.post-content :global(h2) {
+		margin-top: 2em;
+		margin-bottom: 0.8em;
+		font-size: 1.8rem;
+		color: #333;
+	}
+	
+	.post-content :global(h3) {
+		margin-top: 1.5em;
+		margin-bottom: 0.6em;
+		font-size: 1.4rem;
+		color: #333;
+	}
+	
+	.post-content :global(p) {
+		margin-bottom: 1.2em;
+	}
+	
+	.post-content :global(ul), .post-content :global(ol) {
+		margin-bottom: 1.2em;
+		padding-left: 2em;
+	}
+	
+	.post-content :global(li) {
+		margin-bottom: 0.4em;
+	}
+	
+	.post-content :global(img) {
+		max-width: 100%;
+		height: auto;
+		margin: 1.5em 0;
+		border-radius: 8px;
+	}
+	
+	.post-content :global(blockquote) {
+		background: #f8f9fa;
+		border-left: 4px solid #dee2e6;
+		margin: 1.5em 0;
+		padding: 1em 1.5em;
+		font-style: italic;
+		color: #495057;
+	}
+	
+	.post-content :global(pre) {
+		margin: 1.5em 0;
+		padding: 1em;
+		border-radius: 6px;
+		background: #f6f8fa;
+		overflow-x: auto;
+		font-size: 0.9em;
+	}
+	
+	.post-content :global(code) {
+		font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+		font-size: 0.9em;
+		background: #f6f8fa;
+		padding: 0.2em 0.4em;
+		border-radius: 3px;
+	}
+	
+	.post-content :global(pre code) {
+		background: none;
+		padding: 0;
+	}
+</style>
