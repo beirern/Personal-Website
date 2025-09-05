@@ -1,0 +1,368 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Work - Nicola Beirer">
+  <div class="container">
+    <div class="page-header">
+      <h1>Work & Experience</h1>
+      <p class="page-description">
+        My professional journey, skills, and experience in software development and engineering.
+      </p>
+    </div>
+
+    <div class="work-content">
+      
+      <!-- Current Position -->
+      <section class="work-section">
+        <h2>Current Position</h2>
+        <div class="work-item featured">
+          <div class="work-header">
+            <h3 class="job-title">Software Engineer</h3>
+            <span class="company">Current Role</span>
+          </div>
+          <div class="work-meta">
+            <span class="timeline">Present</span>
+            <span class="location">Remote/Hybrid</span>
+          </div>
+          <div class="work-description">
+            <p>Passionate software developer focused on building scalable systems and meaningful software solutions. Currently working on various projects involving system architecture, containerization, and full-stack development.</p>
+            <ul class="achievements">
+              <li>Building and maintaining scalable web applications</li>
+              <li>Implementing containerization strategies with Docker & Kubernetes</li>
+              <li>System architecture design and optimization</li>
+              <li>Mentoring junior developers and code review</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Previous Experience -->
+      <section class="work-section">
+        <h2>Previous Experience</h2>
+        
+        <div class="work-item">
+          <div class="work-header">
+            <h3 class="job-title">Software Development Projects</h3>
+            <span class="company">Personal & Academic</span>
+          </div>
+          <div class="work-meta">
+            <span class="timeline">Ongoing</span>
+            <span class="location">Various</span>
+          </div>
+          <div class="work-description">
+            <p>Extensive experience with personal and academic software development projects, focusing on learning and implementing various technologies and best practices.</p>
+            <ul class="achievements">
+              <li>Developed basketball statistics scraping and analysis tools</li>
+              <li>Created database management systems in C</li>
+              <li>Built web applications with modern frameworks</li>
+              <li>Participated in University of Washington projects</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="work-section">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+          
+          <div class="skill-category">
+            <h3>Languages & Frameworks</h3>
+            <div class="skills-list">
+              <span class="skill-tag">JavaScript/TypeScript</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">C/C++</span>
+              <span class="skill-tag">HTML/CSS</span>
+              <span class="skill-tag">Astro</span>
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">Node.js</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Infrastructure & Tools</h3>
+            <div class="skills-list">
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">Kubernetes</span>
+              <span class="skill-tag">Linux/Unix</span>
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">CI/CD</span>
+              <span class="skill-tag">AWS/Cloud</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Databases & Data</h3>
+            <div class="skills-list">
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">PostgreSQL</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">Database Design</span>
+              <span class="skill-tag">Data Analysis</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Concepts & Practices</h3>
+            <div class="skills-list">
+              <span class="skill-tag">System Architecture</span>
+              <span class="skill-tag">Microservices</span>
+              <span class="skill-tag">RESTful APIs</span>
+              <span class="skill-tag">Agile/Scrum</span>
+              <span class="skill-tag">Test-Driven Development</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section class="work-section">
+        <h2>Education</h2>
+        <div class="work-item">
+          <div class="work-header">
+            <h3 class="job-title">Computer Science Studies</h3>
+            <span class="company">University of Washington</span>
+          </div>
+          <div class="work-meta">
+            <span class="timeline">Academic Background</span>
+          </div>
+          <div class="work-description">
+            <p>Strong foundation in computer science principles, algorithms, and software engineering practices.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Personal Projects & Interests -->
+      <section class="work-section">
+        <h2>Beyond Code</h2>
+        <div class="personal-content">
+          <p>When I'm not coding, you can find me:</p>
+          <ul class="personal-interests">
+            <li><strong>Martial Arts:</strong> Jiu-jitsu and Muay Thai training</li>
+            <li><strong>Athletics:</strong> Cycling and various sports</li>
+            <li><strong>Aviation:</strong> Flying planes (pilot experience)</li>
+            <li><strong>Philosophy:</strong> Reading and thinking about life's big questions</li>
+            <li><strong>Location:</strong> Previously based in San Francisco</li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+
+  .page-description {
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .work-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .work-section {
+    position: relative;
+  }
+
+  .work-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--color-text);
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-accent);
+  }
+
+  .work-item {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: var(--transition-hover);
+  }
+
+  .work-item.featured {
+    border-color: var(--color-accent);
+    position: relative;
+  }
+
+  .work-item.featured::before {
+    content: 'Current';
+    position: absolute;
+    top: -10px;
+    left: 2rem;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .job-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .company {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .work-meta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+
+  .work-description p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .achievements {
+    list-style: none;
+    padding: 0;
+  }
+
+  .achievements li {
+    color: var(--color-text-secondary);
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .achievements li::before {
+    content: '▸';
+    color: var(--color-accent);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+  }
+
+  .skills-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .skill-category h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid var(--color-border);
+    transition: var(--transition-hover);
+  }
+
+  .skill-tag:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .personal-content p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .personal-interests {
+    list-style: none;
+    padding: 0;
+  }
+
+  .personal-interests li {
+    color: var(--color-text-secondary);
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .personal-interests li::before {
+    content: '●';
+    color: var(--color-accent);
+    position: absolute;
+    left: 0;
+  }
+
+  .personal-interests strong {
+    color: var(--color-text);
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    .work-header {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .work-meta {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -37,8 +37,8 @@ function createExcerpt(content: string, maxLength: number = 200) {
 
 <style>
 	.post-preview {
-		padding: 1.5em 0;
-		border-bottom: 1px solid #eee;
+		padding: 1.5rem 0;
+		border-bottom: 1px solid var(--color-border-light);
 	}
 	
 	.post-preview:last-child {
@@ -46,27 +46,27 @@ function createExcerpt(content: string, maxLength: number = 200) {
 	}
 	
 	h2 {
-		margin: 0 0 0.5em 0;
+		margin: 0 0 0.5rem 0;
 		font-size: 1.5rem;
 	}
 	
 	h2 a {
-		color: #333;
+		color: var(--color-text);
 		text-decoration: none;
-		transition: color 0.2s ease;
+		transition: var(--transition-hover);
 	}
 	
 	h2 a:hover {
-		color: #0366d6;
+		color: var(--color-accent);
 	}
 	
 	.post-meta {
-		margin-bottom: 1em;
-		color: #666;
+		margin-bottom: 1rem;
+		color: var(--color-text-muted);
 		font-size: 0.9rem;
 		display: flex;
 		align-items: center;
-		gap: 1em;
+		gap: 1rem;
 	}
 	
 	.tag {
@@ -74,29 +74,32 @@ function createExcerpt(content: string, maxLength: number = 200) {
 	}
 	
 	.tag a {
-		color: #0366d6;
+		color: var(--color-accent);
 		text-decoration: none;
 		font-size: 0.85rem;
+		transition: var(--transition-hover);
 	}
 	
 	.tag a:hover {
+		color: var(--color-accent-hover);
 		text-decoration: underline;
 	}
 	
 	.excerpt {
-		margin-bottom: 1em;
+		margin-bottom: 1rem;
 		line-height: 1.6;
-		color: #555;
+		color: var(--color-text-secondary);
 	}
 	
 	.read-more {
-		color: #0366d6;
+		color: var(--color-accent);
 		text-decoration: none;
-		font-weight: 500;
+		font-weight: 600;
 		font-size: 0.9rem;
+		transition: var(--transition-hover);
 	}
 	
 	.read-more:hover {
-		text-decoration: underline;
+		color: var(--color-accent-hover);
 	}
 </style>

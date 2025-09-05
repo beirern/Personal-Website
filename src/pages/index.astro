@@ -1,42 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostPreview from '../components/PostPreview.astro';
-
-// Get all posts and filter based on environment
-const allPosts = await getCollection('posts');
-const isDev = import.meta.env.DEV;
-
-const visiblePosts = allPosts
-	.filter(post => isDev || (!post.data.draft && !post.data.invisible))
-	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+import AboutSection from '../components/AboutSection.astro';
+import WorkSection from '../components/WorkSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import BlogSection from '../components/BlogSection.astro';
 ---
 
-<BaseLayout title="Nicola Beirer's Blog">
-	<div class="container">
-		<h1>Recent Posts</h1>
-		<div class="posts-container">
-			{visiblePosts.map((post) => (
-				<PostPreview post={post} />
-			))}
-		</div>
-	</div>
+<BaseLayout title="Nicola Beirer - Developer & Engineer">
+	<AboutSection />
+	<WorkSection />
+	<ProjectsSection />
+	<BlogSection />
 </BaseLayout>
-
-<style>
-	.container {
-		max-width: 800px;
-		margin: 0 auto;
-		padding: 2em 1em;
-	}
-	h1 {
-		margin-bottom: 2em;
-		font-size: 2.2rem;
-		color: #333;
-	}
-	.posts-container {
-		display: flex;
-		flex-direction: column;
-		gap: 2em;
-	}
-</style>

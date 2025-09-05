@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostPreview from '../components/PostPreview.astro';
+
+// Get all posts and filter based on environment
+const allPosts = await getCollection('posts');
+const isDev = import.meta.env.DEV;
+
+const visiblePosts = allPosts
+	.filter(post => isDev || (!post.data.draft && !post.data.invisible))
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="All Posts - Nicola Beirer">
+	<div class="container">
+		<div class="page-header">
+			<h1>All Posts</h1>
+			<p class="page-description">
+				A collection of my thoughts on development, system architecture, and random musings.
+			</p>
+		</div>
+		
+		{visiblePosts.length > 0 ? (
+			<div class="posts-container">
+				{visiblePosts.map((post) => (
+					<PostPreview post={post} />
+				))}
+			</div>
+		) : (
+			<div class="no-posts">
+				<p>No posts published yet. Check back soon!</p>
+			</div>
+		)}
+	</div>
+</BaseLayout>
+
+<style>
+	.container {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+	}
+	
+	.page-header {
+		text-align: center;
+		margin-bottom: 3rem;
+	}
+	
+	h1 {
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin-bottom: 1rem;
+		color: var(--color-text);
+	}
+	
+	.page-description {
+		color: var(--color-text-secondary);
+		font-size: 1.1rem;
+		line-height: 1.6;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+	
+	.posts-container {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+	
+	.no-posts {
+		text-align: center;
+		padding: 4rem 0;
+		color: var(--color-text-secondary);
+		font-size: 1.1rem;
+	}
+	
+	@media (max-width: 768px) {
+		h1 {
+			font-size: 2rem;
+		}
+		
+		.page-description {
+			font-size: 1rem;
+		}
+	}
+</style>

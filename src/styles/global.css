@@ -1,3 +1,41 @@
+/* CSS Custom Properties for Theme System */
+:root {
+  --color-bg: #ffffff;
+  --color-bg-secondary: #fafafa;
+  --color-text: #333333;
+  --color-text-secondary: #666666;
+  --color-text-muted: #888888;
+  --color-accent: #0366d6;
+  --color-accent-hover: #0256c7;
+  --color-border: #e1e4e8;
+  --color-border-light: #f0f0f0;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-light: rgba(0, 0, 0, 0.05);
+  
+  /* Transitions */
+  --transition-theme: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  --transition-hover: color 0.2s ease, background-color 0.2s ease;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0d1117;
+  --color-bg-secondary: #161b22;
+  --color-text: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-text-muted: #656d76;
+  --color-accent: #58a6ff;
+  --color-accent-hover: #409cff;
+  --color-border: #30363d;
+  --color-border-light: #21262d;
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-shadow-light: rgba(0, 0, 0, 0.2);
+}
+
+/* Disable transitions during theme change to prevent flashing */
+.theme-transition-disable * {
+  transition: none !important;
+}
+
 /* Reset and base styles */
 * {
   margin: 0;
@@ -7,28 +45,48 @@
 
 html {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
   line-height: 1.6;
-  color: #333;
-  background-color: #fafafa;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  transition: var(--transition-theme);
 }
 
 /* Global link styles */
 a {
-  color: #0366d6;
+  color: var(--color-accent);
   text-decoration: none;
+  transition: var(--transition-hover);
 }
 
 a:hover {
+  color: var(--color-accent-hover);
   text-decoration: underline;
 }
 
 /* Global typography */
 h1, h2, h3, h4, h5, h6 {
-  color: #333;
+  color: var(--color-text);
   line-height: 1.3;
+}
+
+/* Section spacing */
+.section {
+  padding: 4rem 0;
+}
+
+.section:first-child {
+  padding-top: 2rem;
+}
+
+/* Container utility */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 /* Main layout */
@@ -40,5 +98,9 @@ main {
 @media (max-width: 768px) {
   html {
     font-size: 14px;
+  }
+  
+  .section {
+    padding: 2rem 0;
   }
 }
