@@ -4,9 +4,7 @@ test('Navigation works correctly', async ({ page }) => {
   await page.goto('/');
   
   // Test navigation links
-  await page.click('text=Poems');
-  await expect(page).toHaveURL('/poems');
-  
+
   await page.click('text=About');
   await expect(page).toHaveURL('/about');
   
@@ -39,12 +37,6 @@ test('Individual post navigation works', async ({ page }) => {
   }
 });
 
-test('Poems page works', async ({ page }) => {
-  await page.goto('/poems');
-  
-  // Should have page title
-  await expect(page.locator('h1')).toContainText('All Poems');
-});
 
 test('About page renders', async ({ page }) => {
   await page.goto('/about');

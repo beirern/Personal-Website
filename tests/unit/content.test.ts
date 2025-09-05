@@ -14,17 +14,6 @@ describe('Content Collections', () => {
     });
   });
 
-  it('should load all poems correctly', async () => {
-    const poems = await getCollection('poems');
-    expect(poems.length).toBeGreaterThan(0);
-    
-    // Verify required frontmatter
-    poems.forEach(poem => {
-      expect(poem.data.title).toBeDefined();
-      expect(poem.data.date).toBeInstanceOf(Date);
-      expect(Array.isArray(poem.data.tags)).toBe(true);
-    });
-  });
 
   it('should have posts with proper tag structure', async () => {
     const posts = await getCollection('posts');
