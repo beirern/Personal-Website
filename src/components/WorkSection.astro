@@ -1,5 +1,8 @@
 ---
 // Work section component for resume/employment information
+import { getWorkPreview } from '../data/work';
+
+const { currentWork, topSkills } = getWorkPreview();
 ---
 
 <section class="section">
@@ -8,19 +11,19 @@
     <div class="work-content">
       <div class="work-item current">
         <div class="work-header">
-          <h3 class="job-title">Software Engineer</h3>
-          <span class="company">Current Position</span>
+          <h3 class="job-title">{currentWork.title}</h3>
+          <span class="company">{currentWork.company}</span>
         </div>
         <div class="work-meta">
-          <span class="timeline">Present</span>
+          <span class="timeline">{currentWork.timeline}</span>
+          {currentWork.location && <span class="location">{currentWork.location}</span>}
         </div>
         <div class="work-description">
-          <p>Passionate developer focused on building scalable systems and meaningful software solutions. Experience in system architecture, containerization, and full-stack development.</p>
+          <p>{currentWork.description}</p>
           <div class="skills">
-            <span class="skill">System Architecture</span>
-            <span class="skill">Docker & Kubernetes</span>
-            <span class="skill">Unix/Linux</span>
-            <span class="skill">Full-Stack Development</span>
+            {topSkills.map(skill => (
+              <span class="skill">{skill}</span>
+            ))}
           </div>
         </div>
       </div>
@@ -91,9 +94,11 @@
 
   .work-meta {
     margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
   }
 
-  .timeline {
+  .timeline, .location {
     color: var(--color-text-muted);
     font-size: 0.9rem;
   }

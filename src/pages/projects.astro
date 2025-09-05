@@ -1,5 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { projects, getFeaturedProjects, getProjectsByCategory } from '../data/projects';
+
+const featuredProjects = getFeaturedProjects();
+const systemArchProjects = getProjectsByCategory('system-architecture');
+const academicProjects = getProjectsByCategory('academic');
+const experimentalProjects = getProjectsByCategory('experimental');
 ---
 
 <BaseLayout title="Projects - Nicola Beirer">

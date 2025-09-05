@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { currentWork, previousWork, skillCategories, education, personalInterests } from '../data/work';
 ---
 
 <BaseLayout title="Work - Nicola Beirer">
@@ -18,20 +19,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <h2>Current Position</h2>
         <div class="work-item featured">
           <div class="work-header">
-            <h3 class="job-title">Software Engineer</h3>
-            <span class="company">Current Role</span>
+            <h3 class="job-title">{currentWork.title}</h3>
+            <span class="company">{currentWork.company}</span>
           </div>
           <div class="work-meta">
-            <span class="timeline">Present</span>
-            <span class="location">Remote/Hybrid</span>
+            <span class="timeline">{currentWork.timeline}</span>
+            {currentWork.location && <span class="location">{currentWork.location}</span>}
           </div>
           <div class="work-description">
-            <p>Passionate software developer focused on building scalable systems and meaningful software solutions. Currently working on various projects involving system architecture, containerization, and full-stack development.</p>
+            <p>{currentWork.description}</p>
             <ul class="achievements">
-              <li>Building and maintaining scalable web applications</li>
-              <li>Implementing containerization strategies with Docker & Kubernetes</li>
-              <li>System architecture design and optimization</li>
-              <li>Mentoring junior developers and code review</li>
+              {currentWork.achievements.map(achievement => (
+                <li>{achievement}</li>
+              ))}
             </ul>
           </div>
         </div>
@@ -40,98 +40,62 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <!-- Previous Experience -->
       <section class="work-section">
         <h2>Previous Experience</h2>
-        
-        <div class="work-item">
-          <div class="work-header">
-            <h3 class="job-title">Software Development Projects</h3>
-            <span class="company">Personal & Academic</span>
+        {previousWork.map(work => (
+          <div class="work-item">
+            <div class="work-header">
+              <h3 class="job-title">{work.title}</h3>
+              <span class="company">{work.company}</span>
+            </div>
+            <div class="work-meta">
+              <span class="timeline">{work.timeline}</span>
+              {work.location && <span class="location">{work.location}</span>}
+            </div>
+            <div class="work-description">
+              <p>{work.description}</p>
+              <ul class="achievements">
+                {work.achievements.map(achievement => (
+                  <li>{achievement}</li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <div class="work-meta">
-            <span class="timeline">Ongoing</span>
-            <span class="location">Various</span>
-          </div>
-          <div class="work-description">
-            <p>Extensive experience with personal and academic software development projects, focusing on learning and implementing various technologies and best practices.</p>
-            <ul class="achievements">
-              <li>Developed basketball statistics scraping and analysis tools</li>
-              <li>Created database management systems in C</li>
-              <li>Built web applications with modern frameworks</li>
-              <li>Participated in University of Washington projects</li>
-            </ul>
-          </div>
-        </div>
+        ))}
       </section>
 
       <!-- Skills -->
       <section class="work-section">
         <h2>Technical Skills</h2>
         <div class="skills-grid">
-          
-          <div class="skill-category">
-            <h3>Languages & Frameworks</h3>
-            <div class="skills-list">
-              <span class="skill-tag">JavaScript/TypeScript</span>
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">C/C++</span>
-              <span class="skill-tag">HTML/CSS</span>
-              <span class="skill-tag">Astro</span>
-              <span class="skill-tag">React</span>
-              <span class="skill-tag">Node.js</span>
+          {skillCategories.map(category => (
+            <div class="skill-category">
+              <h3>{category.name}</h3>
+              <div class="skills-list">
+                {category.skills.map(skill => (
+                  <span class="skill-tag">{skill}</span>
+                ))}
+              </div>
             </div>
-          </div>
-
-          <div class="skill-category">
-            <h3>Infrastructure & Tools</h3>
-            <div class="skills-list">
-              <span class="skill-tag">Docker</span>
-              <span class="skill-tag">Kubernetes</span>
-              <span class="skill-tag">Linux/Unix</span>
-              <span class="skill-tag">Git</span>
-              <span class="skill-tag">CI/CD</span>
-              <span class="skill-tag">AWS/Cloud</span>
-            </div>
-          </div>
-
-          <div class="skill-category">
-            <h3>Databases & Data</h3>
-            <div class="skills-list">
-              <span class="skill-tag">SQL</span>
-              <span class="skill-tag">PostgreSQL</span>
-              <span class="skill-tag">MongoDB</span>
-              <span class="skill-tag">Database Design</span>
-              <span class="skill-tag">Data Analysis</span>
-            </div>
-          </div>
-
-          <div class="skill-category">
-            <h3>Concepts & Practices</h3>
-            <div class="skills-list">
-              <span class="skill-tag">System Architecture</span>
-              <span class="skill-tag">Microservices</span>
-              <span class="skill-tag">RESTful APIs</span>
-              <span class="skill-tag">Agile/Scrum</span>
-              <span class="skill-tag">Test-Driven Development</span>
-            </div>
-          </div>
-
+          ))}
         </div>
       </section>
 
       <!-- Education -->
       <section class="work-section">
         <h2>Education</h2>
-        <div class="work-item">
-          <div class="work-header">
-            <h3 class="job-title">Computer Science Studies</h3>
-            <span class="company">University of Washington</span>
+        {education.map(edu => (
+          <div class="work-item">
+            <div class="work-header">
+              <h3 class="job-title">{edu.title}</h3>
+              <span class="company">{edu.institution}</span>
+            </div>
+            <div class="work-meta">
+              <span class="timeline">{edu.timeline}</span>
+            </div>
+            <div class="work-description">
+              <p>{edu.description}</p>
+            </div>
           </div>
-          <div class="work-meta">
-            <span class="timeline">Academic Background</span>
-          </div>
-          <div class="work-description">
-            <p>Strong foundation in computer science principles, algorithms, and software engineering practices.</p>
-          </div>
-        </div>
+        ))}
       </section>
 
       <!-- Personal Projects & Interests -->
@@ -140,11 +104,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="personal-content">
           <p>When I'm not coding, you can find me:</p>
           <ul class="personal-interests">
-            <li><strong>Martial Arts:</strong> Jiu-jitsu and Muay Thai training</li>
-            <li><strong>Athletics:</strong> Cycling and various sports</li>
-            <li><strong>Aviation:</strong> Flying planes (pilot experience)</li>
-            <li><strong>Philosophy:</strong> Reading and thinking about life's big questions</li>
-            <li><strong>Location:</strong> Previously based in San Francisco</li>
+            {personalInterests.map(interest => (
+              <li><strong>{interest.category}:</strong> {interest.description}</li>
+            ))}
           </ul>
         </div>
       </section>
