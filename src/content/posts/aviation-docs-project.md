@@ -57,39 +57,224 @@ At the time I built this I was interested in AI and wanted to build something wi
 
 Let's start with the LLM since the rest of the stack is more "standard" and most programmers would likely understand it without going into too much explanation but LLMs are a bit newer. As I mentioned this was a great use case for a RAG LLM.
 
-![RAM LLM](/images/rag.png "RAG LLM")
+```mermaid
+graph LR
+    A[📝 Question] --> B[🔍 Retrieval System]
+    B --> C[📄 Relevant Documents]
+    C --> D[🧠 LLM Model]
+    D --> E[💬 Answer]
+    
+    subgraph "1. Retrieval"
+        B
+    end
+    
+    subgraph "2. Generation"
+        D
+    end
+    
+    style A fill:#e3f2fd
+    style E fill:#e8f5e8
+    style B fill:#fff3e0
+    style D fill:#f3e5f5
+```
 
 The basic idea of a RAG LLM is to use an LLM's ability to understand language and generate sentences/answer and pair it with highly specific context for generating those answers. In this case we would take a users's question, e.g. "What is the best glide speed on the Cessna 172?" and using ONLY documents provided to the LLM it would find the relevant section in one of the documents and answer something like "The best glide speed for a Cessna 172 is 68 knots with all flaps up" and then provide a link to the place where it found this information. If it fails to find relevant information it should respond "I don't know". The key concept here is that we can use a pre-trained LLM (for example gpt-4 or gemini-2.5) and have it only provide answers based on specific input information.
 
-![More Detailed RAG Workflow](/images/rag_detail.png "More Detailed RAG Workflow")
+```mermaid
+graph TD
+    A[📚 Input Documents] --> B[✂️ Chunk Documents]
+    B --> C[🔢 Generate Embeddings]
+    C --> D[💾 Store in Vector DB]
+    
+    E[❓ User Query] --> F[🔢 Query Embedding]
+    F --> G[🔍 Similarity Search]
+    D --> G
+    G --> H[📄 Relevant Chunks]
+    H --> I[🧠 LLM with Context]
+    I --> J[💬 Generated Answer]
+    
+    subgraph "Offline Processing"
+        A
+        B
+        C
+        D
+    end
+    
+    subgraph "Query Time"
+        E
+        F
+        G
+        H
+        I
+        J
+    end
+    
+    style A fill:#e3f2fd
+    style E fill:#e3f2fd
+    style J fill:#e8f5e8
+    style D fill:#fff3e0
+    style I fill:#f3e5f5
+```
 
-This document provides a bit more detail for those curious about this specific workflow
+This diagram provides more detail for those curious about the specific RAG workflow:
 
-1. Take in the input documents
-2. Chunk them (break them into smaller pieces)
-    a. There are different ways to do this varying the size of the chunks and overlap
-3. Use an embedding algorithm to turn the words (tokens) into a vector and store that in a DB
-4. Once a query comes in then do steps 2 & 3 on the query
-5. Compare query vector and document vector and if they are similar (computed vs distance algorithms) then that part of the document might answer the question
-6. Feed these "relevant" parts of the document into LLM context
-7. Have LLM answer the question ONLY using the documents in its context
+1. **Take in the input documents** - Load aviation handbooks, regulations, etc.
+2. **Chunk them** - Break documents into smaller pieces with configurable size and overlap
+3. **Generate embeddings** - Use an embedding algorithm to convert text into vectors
+4. **Store in vector database** - Save embeddings for fast similarity search
+5. **Process user query** - Convert the question into the same vector space
+6. **Similarity search** - Find document chunks most relevant to the query
+7. **Feed context to LLM** - Provide relevant chunks as context
+8. **Generate answer** - LLM responds using ONLY the provided documents
 
 ## Rest of the Stack
 
 In general the website is built with Django (Python) and uses Docker to interact with PostgreSQL for storage and ChromaDB for vector embedding storage. S3 is used for storing users documents and we currently use gemini-2.5 for embedding + the LLM however this is subject to change. The diagram below shows the basic setup. It's currently all on my lightsail server which might not be the most scalable solution at the moment but it's cheap and easy to understand and an optimization for later.
 
-![High Level Architecture Diagram](/images/aviation-high-level.png "High Level Architecture Diagram")
+```mermaid
+graph TB
+    subgraph "AWS Lightsail Instance"
+        subgraph "Reverse Proxy Layer"
+            Caddy["🌐 Caddy Server<br/>SSL Termination<br/>HTTPS/Domain Routing"]
+        end
+
+        subgraph "Docker Container Stack"
+            Django["🚀 Django Web App<br/>Gunicorn + Django 5.2<br/>Port 8000"]
+            DB["🗃️ PostgreSQL 17<br/>Primary Database<br/>Port 5432"]
+            Vector["📊 ChromaDB Vector Store<br/>Client-Server Mode<br/>Port 5005"]
+            Monitor["🏥 Autoheal Container<br/>Health Monitoring"]
+        end
+    end
+
+    subgraph "External Services"
+        S3["☁️ AWS S3<br/>faa-ai-prod bucket<br/>Document Storage"]
+        Gemini["🧠 Google Gemini API<br/>LLM + Embeddings<br/>gemini-2.5-flash"]
+        VT["🛡️ VirusTotal API<br/>Antivirus Scanning"]
+    end
+
+    Users["👥 Users<br/>aviationdocs.net"] --> Caddy
+    Caddy --> Django
+    Django --> DB
+    Django --> Vector
+    Django --> S3
+    Django --> Gemini
+    Django --> VT
+    Monitor --> Django
+    Monitor --> DB
+    Monitor --> Vector
+
+    style Caddy fill:#e1f5fe
+    style Django fill:#f3e5f5
+    style DB fill:#e8f5e8
+    style Vector fill:#fff3e0
+    style S3 fill:#e3f2fd
+    style Gemini fill:#f1f8e9
+```
 
 The LLM portion of this post talked about generally flow of querying but here is a diagram for visual learners.
 
-![Chat Flow Diagram](/images/aviation-chat.png "Chat Flow Diagram")
+```mermaid
+graph TD
+    User["👤 User"] --> QueryForm["📝 Query Form<br/>Django Template"]
+    QueryForm --> RateLimit["⚡ Rate Limiting<br/>Request Validation"]
+    RateLimit --> Auth["🔐 User Authentication<br/>Permission Check"]
+    Auth --> DocFilter["📄 Document Filtering<br/>User-specific Access"]
+
+    DocFilter --> VectorSearch["🔍 Vector Search<br/>ChromaDB Similarity<br/>Distance Cutoffs"]
+    VectorSearch --> ContextRetrieval["📚 Context Retrieval<br/>Document Chunks"]
+
+    ContextRetrieval --> LangGraph["🔄 LangGraph Pipeline"]
+
+    subgraph "LangGraph RAG Processing"
+        LangGraph --> QueryProcess["🧠 Query Processing"]
+        QueryProcess --> RelevanceScore["📊 Relevance Scoring"]
+        RelevanceScore --> GeminiAPI["🚀 Google Gemini API<br/>Answer Generation"]
+        GeminiAPI --> SourceAttrib["📎 Source Attribution"]
+    end
+
+    SourceAttrib --> ResponseAssembly["📋 Response Assembly<br/>Formatted Answer"]
+    ResponseAssembly --> JSONResponse["💾 JSON Response"]
+    JSONResponse --> Frontend["🖥️ Frontend Display"]
+    Frontend --> User
+
+    subgraph "Data Sources"
+        ChromaDB["📊 ChromaDB<br/>Vector Embeddings"]
+        Documents["📚 FAA Documents<br/>S3 Storage"]
+    end
+
+    VectorSearch --> ChromaDB
+    ContextRetrieval --> Documents
+
+    style User fill:#e3f2fd
+    style LangGraph fill:#f3e5f5
+    style GeminiAPI fill:#e8f5e8
+    style ChromaDB fill:#fff3e0
+```
 
 Also here is a diagram for the upload document flow for those curious.
 
-![Upload Document Flow Diagram](/images/aviation-chat.png "Upload Document Flow Diagram")
+```mermaid
+graph TD
+    User["👤 Authenticated User"] --> UploadForm["📤 Upload Form<br/>Django Authentication"]
+    UploadForm --> FileValidation["✅ Security Validation<br/>Type, Size, Quota Checks"]
+
+    FileValidation --> VirusScan["🛡️ VirusTotal Scanning<br/>Antivirus Validation"]
+    VirusScan --> ScanResult{Scan Result}
+
+    ScanResult -->|Clean| S3Upload["☁️ S3 Storage<br/>faa-ai-prod bucket<br/>File Upload"]
+    ScanResult -->|Malicious| Reject["❌ File Rejected<br/>Security Alert"]
+
+    S3Upload --> DBRecord["🗃️ Database Record<br/>Document Model Creation<br/>User Ownership"]
+
+    DBRecord --> ProcessPipeline["🔄 Processing Pipeline"]
+
+    subgraph "PDF Processing Pipeline"
+        ProcessPipeline --> PyMuPDF["📄 PyMuPDF<br/>Text Extraction"]
+        PyMuPDF --> TextSplit["✂️ LangChain Text Splitting<br/>RecursiveCharacterTextSplitter"]
+        TextSplit --> EmbedGen["🧠 Google Gemini<br/>Embedding Generation"]
+        EmbedGen --> VectorStore["📊 ChromaDB Integration<br/>Vector Insertion"]
+    end
+
+    VectorStore --> StatusUpdate["📋 Status Update<br/>Processing Complete"]
+    StatusUpdate --> UserNotify["📧 User Notification<br/>Success Confirmation"]
+
+    subgraph "Storage Systems"
+        S3["☁️ AWS S3<br/>Document Files"]
+        DB["🗃️ PostgreSQL<br/>Metadata"]
+        Vector["📊 ChromaDB<br/>Embeddings"]
+    end
+
+    S3Upload --> S3
+    DBRecord --> DB
+    VectorStore --> Vector
+
+    subgraph "Error Handling"
+        Reject --> ErrorLog["📝 Error Logging"]
+        ProcessPipeline --> ErrorHandler["⚠️ Processing Errors<br/>Retry Logic"]
+    end
+
+    style User fill:#e3f2fd
+    style VirusScan fill:#ffebee
+    style ProcessPipeline fill:#f3e5f5
+    style S3 fill:#e1f5fe
+    style DB fill:#e8f5e8
+    style Vector fill:#fff3e0
+```
 
 Overall the tech stack isn't anything crazy. Django was amazing a quick way to get pages running and working while PostgreSQL was chosen as I worked with it before professionally and there isn't a reason to not use it.
 
 # Future Improvements
 
+There are a few things that need to be improved.
+
+1. **Make Document Upload Process Async** - Currently if you upload the document and it fails at any part: S3 upload, antivirus, embedding, it is just considered failed and changes are rolled back. Ideally we would use a separate processing service for this. I didn't think this was *necessary* to add at the moment but I know django has the ability to plug into a tool like **celery** for background jobs. So I'd love to tackle that, I've never implemented worker processes before so it would be new for me!
+2. **Evaluate Models** - One of the hardest things to do with the subjective and non-deterministic natures of LLMs is to quantify how well they perform. It would be good to have metrics for this and an easy easy to judge if this is getting better or worse.
+3. **More preprocessing for specific documents** - If you noticed the ACS and FAR are not documents available to query at the moment. This is because the embedding models are not very good at understanding how they are structured and without any preprocessing querying those documents sucks. This should not be difficult to fix, probably could use another AI to preprocess it.
+
 # Learnings
+
+1. **Agentic AI Workflow** - I haven't mentioned this at all before but probably the biggest learning has been learning how to leverage an AI agent (Claude in this case). This project started with me hand-rolling my code and it was great to setup the RAG pipeline by hand to reinforce the ideas but once I had my PoC done and wanted to add the actual website scaffolding with Django I leaned more and more into Claude until now basically this whole project is AI code. It's actually incredible how fast this was done, It's taken about 1 month to build this project and it would have taken at least 3x more if I did it myself (especially the front end) and it wouldn't have some of the features it has such as the security headers policies and antivirus (I didn't even think of adding that). AI agents aren't perfect but with good prompting and context handling they're incredibly fast at coding and generally it getting a first draft out, and revising the code 2 times is faster than my first draft.
+2. **RAG** - I learned how a RAG LLM works! In general when I see LLMs it seems like this kind of LLM is generally the best kind of LLM you can get. I'm not a person that think that LLMs will bring about ASI rather I think applications of LLMs like RAG are pretty much perfect use cases for LLMs and they don't need to be more than that.
+3. **SaaS** - This is the first thing I've built that I'd call a SaaS. Soon I'll be pushing some ads and seeing if anyone will use it but if I get one person to like it it'll be a success. Right now this setup costs me $30-40 / month (lightsail + SSDs + S3 + LLM APIs) and I don't see it taking much more unless a lot of people start using it. If it gets more expensive or reoccurring users then I can think of actually putting in monetization (I have some ideas) but at the moment I'm proud just to have built something that looks and functions like a professional SaaS product.
+
+I'm taking a bit of a break from this project but plan to come back to it. Hopefully if you read this you can check out https://aviationdocs.net and maybe it has some new, cool features available!!
