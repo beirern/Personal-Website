@@ -24,7 +24,7 @@ The idea of the project was a file based DB about employee information including
 * Add/Remove an employee from the database
 * Edit an employee's information in the database
 
-It also does some other interesting things by wrtting a header in the file with information containing
+It also does some other interesting things by writing a header in the file with information containing
 * The version of the API it is using
 * Count of employees in DB
 * What the size of the file *should be*, e.g. size of all the employees + header

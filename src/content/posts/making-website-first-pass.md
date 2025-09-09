@@ -9,7 +9,7 @@ excerpt: I try to use AI For the first time to see how it builds and designs a p
 
 For a while I've wanted to have a personal website where I can write about my projects and general thoughts. Whether the world needs this is questionable but this last week I've decided to do it. Mostly because I also decided I would leave my job and this website might help with a new one but that's a story for a different post. More pertinent is that I realized that this would be a great use of AI! I've worked on websites before and have experience deploying them so I understand how to design it and just need a worker to execute my vision: the perfect use case for AI!
 
-My vision was pretty simple: A website that would just serve blog posts, use templates since it seemed to me that that would be an easy way to add more content and keep the look consistent, and not be built on React. Personal project to me should avoid complex optimizations and unnecessary complexity as much as possible. My projects tend to be worked on in spurts of inspiration/motivation/free time and the absolute worst thing that can happen is opening a project and it not working. I am proud that Lakubot has running for multiple years and everytime I open it up it's worked and I can just add features. In my experience React is overly complicated and will lead to problemns in the future though I'm also happy to concede that this might be a skill issue.
+My vision was pretty simple: A website that would just serve blog posts, use templates since it seemed to me that that would be an easy way to add more content and keep the look consistent, and not be built on React. Personal project to me should avoid complex optimizations and unnecessary complexity as much as possible. My projects tend to be worked on in spurts of inspiration/motivation/free time and the absolute worst thing that can happen is opening a project and it not working. I am proud that Lakubot has running for multiple years and every time I open it up it's worked and I can just add features. In my experience React is overly complicated and will lead to problems in the future though I'm also happy to concede that this might be a skill issue.
 
 For historical reference at the time of writing my codebase looks is at this commit: https://github.com/beirern/Personal-Website/commit/bd719c165f4f00bd99f63a37e63392af8ecff332.
 
@@ -110,7 +110,7 @@ app.engine('html', require('fs').readFileSync);
 
 I never used these options in `express` before so I didn't know what they do. I ended up looking it up and found [documentation](https://expressjs.com/en/guide/using-template-engines.html) about view engines and at this point I realized what happened. I had heard that AI can frequently implement half-backed ideas into the code it writes and this was a prime example.
 
-If it had properly used templates it would have set `app.set('view engine', 'pug');` and filled out `views/` with `.pug` files rather than using HTML files with `.replace()`. As far as I can tell it isn't valid to do `app.set('view engine', 'html')` and it doesn't even use this functionality anyways since all the endspoints use `res.send(<html-content>)`. So yea, prime example if it doing something completely half-baked.
+If it had properly used templates it would have set `app.set('view engine', 'pug');` and filled out `views/` with `.pug` files rather than using HTML files with `.replace()`. As far as I can tell it isn't valid to do `app.set('view engine', 'html')` and it doesn't even use this functionality anyways since all the endpoints use `res.send(<html-content>)`. So yea, prime example if it doing something completely half-baked.
 
 ### 4. (Nit) Read files each time an endpoint was hit instead of storing that information on startup
 
@@ -144,13 +144,13 @@ function getBlogPosts() {
 }
 ```
 
-However note that this is a function and not a variable. Each endpoint that needed this data would call this function which means everytime a user would hit one of these endpoints it would read files on disk that are not going to change. I/O is really slow and when I started using the website I noticed that it would take 1-2 seconds for a page to load. I'll discuss more what was changed below but I believe a big cause of that was reading files every time we hit an endpoint.
+However note that this is a function and not a variable. Each endpoint that needed this data would call this function which means every time a user would hit one of these endpoints it would read files on disk that are not going to change. I/O is really slow and when I started using the website I noticed that it would take 1-2 seconds for a page to load. I'll discuss more what was changed below but I believe a big cause of that was reading files every time we hit an endpoint.
 
 ## Gong Back and Properly Implementing Templates
 
 So at this point there were 2 things I wanted to fix
 
-1. Using proper tempalates, e.g. `pug`, rather than `.replace()`ing HTML files
+1. Using proper templates, e.g. `pug`, rather than `.replace()`ing HTML files
 2. Try to speed up the endpoints since they were taking 1-2 seconds to render
 
 I had used all the replies in one chat with Claude so I was on my own. I proceeded to add the copilot extension to VSCode as I wanted an AI that had context into my codebase. I asked it to take the HTML files and convert it to `.pug` files which it did quite well. I did some things on my own like create `common.pug` as some headers and footers were different if you were looking at a post vs looking at the Home and About page.

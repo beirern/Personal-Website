@@ -64,6 +64,10 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
 
+      - name: Check spelling
+        run: ${{ steps.detect-package-manager.outputs.runner }} npm run spell-check
+        working-directory: ${{ env.BUILD_PATH }}
+
       - name: Build with Astro
         run: |
           ${{ steps.detect-package-manager.outputs.runner }} astro build \
