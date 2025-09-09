@@ -119,7 +119,7 @@ What if something goes wrong in the method? You expect an `int` but get passed a
 
 So we can image that the open function looks something like
 
-```C
+```c
 int open(char* filename, int oflag, ...) {
     // Try to open a file
     int file_descriptor = open_file();
@@ -134,7 +134,7 @@ int open(char* filename, int oflag, ...) {
 
 If this method works then we get a file descriptor but if it doesn't we get `-1`. This means that after the method is run we have to actually check if it was successful, *because the error is a return value*. This means that after every `open` call you have to do something like this (taken from project code).
 
-```C
+```c
 int fd = open_db_file(fileName);
 if (fd == -1)
 {
@@ -146,7 +146,7 @@ The general pattern basically became
 
 call method -> check for error -> call different method -> check for error
 
-```C
+```c
 int res = method();
 if (res == -1)
 {
