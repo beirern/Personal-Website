@@ -27,14 +27,14 @@ export interface PersonalInterest {
 }
 
 export const currentWork: WorkItem = {
-  title: "Site Reliabilty Engineer",
+  title: "Site Reliability Engineer",
   company: "Cisco Meraki",
   timeline: "07/2022 - Present",
   location: "Remote & San Francisco, CA",
   description: "Focused on building solutions to keep CI/CD reliable and scalable for 2000+ engineers. Broad mix of responsibilities including firefighting, infrastructure management, and system design to ensure high availability and performance of critical CI/CD systems.",
   achievements: [
     "Building a canary system to deploy new versions to a cohort of customers before wider rollout",
-    "Implementing pull based machine-by-machine deployments to improve reliablity",
+    "Implementing pull based machine-by-machine deployments to improve reliability",
     "Mentored a intern",
     "Mentoring junior developers and code review"
   ],
@@ -105,7 +105,7 @@ export const education: Education[] = [
     title: "B.S.: Applied & Computational Math Sciences: Mathematical Economics and Quantitative Finance",
     institution: "University of Washington",
     timeline: "09/2018 - 06/2022",
-    description: "Specialized in mathematics and quantitive finance, with coursework in algorithms, data structures, statistics, financial modeling, and machine learning."
+    description: "Specialized in mathematics and quantitative finance, with coursework in algorithms, data structures, statistics, financial modeling, and machine learning."
   }
 ];
 
