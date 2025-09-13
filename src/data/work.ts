@@ -27,15 +27,15 @@ export interface PersonalInterest {
 }
 
 export const currentWork: WorkItem = {
-  title: "Software Engineer",
-  company: "Current Role",
-  timeline: "Present",
-  location: "Remote/Hybrid",
-  description: "Passionate software developer focused on building scalable systems and meaningful software solutions. Currently working on various projects involving system architecture, containerization, and full-stack development.",
+  title: "Site Reliabilty Engineer",
+  company: "Cisco Meraki",
+  timeline: "07/2022 - Present",
+  location: "Remote & San Francisco, CA",
+  description: "Focused on building solutions to keep CI/CD reliable and scalable for 2000+ engineers. Broad mix of responsibilities including firefighting, infrastructure management, and system design to ensure high availability and performance of critical CI/CD systems.",
   achievements: [
-    "Building and maintaining scalable web applications",
-    "Implementing containerization strategies with Docker & Kubernetes",
-    "System architecture design and optimization",
+    "Building a canary system to deploy new versions to a cohort of customers before wider rollout",
+    "Implementing pull based machine-by-machine deployments to improve reliablity",
+    "Mentored a intern",
     "Mentoring junior developers and code review"
   ],
   current: true
@@ -61,13 +61,13 @@ export const skillCategories: SkillCategory[] = [
   {
     name: "Languages & Frameworks",
     skills: [
-      "JavaScript/TypeScript",
+      "JavaScript",
+      "Nodejs",
       "Python",
-      "C/C++",
-      "HTML/CSS",
-      "Astro",
-      "React",
-      "Node.js"
+      "Django",
+      "Ruby",
+      "Rails",
+      "Java"
     ]
   },
   {
@@ -78,17 +78,15 @@ export const skillCategories: SkillCategory[] = [
       "Linux/Unix",
       "Git",
       "CI/CD",
-      "AWS/Cloud"
-    ]
-  },
-  {
-    name: "Databases & Data",
-    skills: [
-      "SQL",
-      "PostgreSQL",
-      "MongoDB",
-      "Database Design",
-      "Data Analysis"
+      "AWS",
+      "Ansible",
+      "Terraform",
+      "Jenkins",
+      "Grafana",
+      "Gitlab",
+      "Prometheus",
+      "GitHub Actions",
+      "PostgreSQL"
     ]
   },
   {
@@ -97,18 +95,17 @@ export const skillCategories: SkillCategory[] = [
       "System Architecture",
       "Microservices",
       "RESTful APIs",
-      "Agile/Scrum",
-      "Test-Driven Development"
+      "Agile/Scrum"
     ]
   }
 ];
 
 export const education: Education[] = [
   {
-    title: "Computer Science Studies",
+    title: "B.S.: Applied & Computational Math Sciences: Mathematical Economics and Quantitative Finance",
     institution: "University of Washington",
-    timeline: "Academic Background",
-    description: "Strong foundation in computer science principles, algorithms, and software engineering practices."
+    timeline: "09/2018 - 06/2022",
+    description: "Specialized in mathematics and quantitive finance, with coursework in algorithms, data structures, statistics, financial modeling, and machine learning."
   }
 ];
 
@@ -123,15 +120,15 @@ export const personalInterests: PersonalInterest[] = [
   },
   {
     category: "Aviation",
-    description: "Flying planes (pilot experience)"
+    description: "Training for my Private Pilot License"
   },
   {
     category: "Philosophy",
-    description: "Reading and thinking about life's big questions"
+    description: "Reading, thinking, and writing about life's big questions"
   },
   {
-    category: "Location",
-    description: "Previously based in San Francisco"
+    category: "Traveling",
+    description: "Trying to immerse in different cultures"
   }
 ];
 

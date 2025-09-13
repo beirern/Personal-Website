@@ -94,6 +94,7 @@ main {
   min-height: calc(100vh - 200px);
 }
 
+
 /* Responsive design */
 @media (max-width: 768px) {
   html {
@@ -102,5 +103,10 @@ main {
   
   .section {
     padding: 2rem 0;
+  }
+  
+  /* Faster animation on mobile */
+  .animate-line {
+    transition-duration: 0.4s;
   }
 }

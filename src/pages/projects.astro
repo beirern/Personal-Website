@@ -23,205 +23,151 @@ const experimentalProjects = getProjectsByCategory('experimental');
       <section class="projects-section">
         <h2>Featured Projects</h2>
         
-        <div class="project-card featured">
-          <div class="project-header">
-            <h3 class="project-title">Personal Website & Blog</h3>
-            <div class="project-links">
-              <a href="https://github.com/beirern/Personal-Website" target="_blank" rel="noopener" class="project-link">
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
-              <a href="/" class="project-link">
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                </svg>
-                Live Site
-              </a>
+        {featuredProjects.map((project) => (
+          <div class={`project-card ${project.id === 'personal-website' ? 'featured' : ''}`}>
+            <div class="project-header">
+              <h3 class="project-title">{project.title}</h3>
+              <div class="project-links">
+                {project.links.map((link) => (
+                  <a href={link.url} target="_blank" rel="noopener" class="project-link">
+                    {link.type === 'github' && (
+                      <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                    )}
+                    {link.type === 'live' && (
+                      <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                      </svg>
+                    )}
+                    {link.type === 'demo' && (
+                      <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                      </svg>
+                    )}
+                    <span class="link-text">{link.label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+            <p class="project-description">
+              {project.longDescription || project.description}
+            </p>
+            {project.features && project.features.length > 0 && (
+              <div class="project-features">
+                <h4>Key Features:</h4>
+                <ul>
+                  {project.features.map((feature) => (
+                    <li>{feature}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <div class="project-tech">
+              {project.technologies.map((tech) => (
+                <span class="tech-tag">{tech}</span>
+              ))}
             </div>
           </div>
-          <p class="project-description">
-            Modern portfolio and blog built with Astro and TypeScript. Features include dark mode, responsive design, content collections, RSS feeds, and automated GitHub Pages deployment. This very site you're viewing!
-          </p>
-          <div class="project-features">
-            <h4>Key Features:</h4>
-            <ul>
-              <li>Static site generation with Astro</li>
-              <li>TypeScript for type safety</li>
-              <li>Dark/light theme toggle with system preference detection</li>
-              <li>Content collections for blog posts with frontmatter validation</li>
-              <li>RSS feed generation</li>
-              <li>Responsive design with CSS custom properties</li>
-              <li>Automated deployment with GitHub Actions</li>
-              <li>SEO optimization and sitemap generation</li>
-            </ul>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Astro</span>
-            <span class="tech-tag">TypeScript</span>
-            <span class="tech-tag">CSS3</span>
-            <span class="tech-tag">GitHub Actions</span>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">Basketball Statistics Scraper</h3>
-            <div class="project-links">
-              <a href="https://github.com/beirern" target="_blank" rel="noopener" class="project-link">
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
-            </div>
-          </div>
-          <p class="project-description">
-            Data collection and analysis tool for NBA statistics. Scrapes player and team data from various sources, processes it for analysis, and provides insights into player performance trends.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Web Scraping</span>
-            <span class="tech-tag">Data Analysis</span>
-            <span class="tech-tag">NBA API</span>
-          </div>
-        </div>
+        ))}
 
       </section>
 
       <!-- System Architecture Projects -->
-      <section class="projects-section">
-        <h2>System Architecture & Infrastructure</h2>
-        
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">Containerization Projects</h3>
-            <div class="project-links">
-              <a href="https://github.com/beirern" target="_blank" rel="noopener" class="project-link">
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
+      {systemArchProjects.length > 0 && (
+        <section class="projects-section">
+          <h2>System Architecture & DevOps</h2>
+          {systemArchProjects.map((project) => (
+            <div class="project-card">
+              <div class="project-header">
+                <h3 class="project-title">{project.title}</h3>
+                <div class="project-links">
+                  {project.links.map((link) => (
+                    <a href={link.url} target="_blank" rel="noopener" class="project-link" title={link.label}>
+                      {link.type === 'github' && (
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                          <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                      )}
+                      <span class="link-text">{link.label}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <p class="project-description">{project.description}</p>
+              <div class="project-tech">
+                {project.technologies.map((tech) => (
+                  <span class="tech-tag">{tech}</span>
+                ))}
+              </div>
             </div>
-          </div>
-          <p class="project-description">
-            Collection of Docker and Kubernetes projects focusing on containerized application deployment, orchestration, and scaling. Includes multi-stage builds, Docker Compose setups, and K8s manifests.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">Docker</span>
-            <span class="tech-tag">Kubernetes</span>
-            <span class="tech-tag">Linux</span>
-            <span class="tech-tag">DevOps</span>
-          </div>
-        </div>
+          ))}
+        </section>
+      )}
 
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">Unix Server Management</h3>
-            <div class="project-links">
-              <a href="https://github.com/beirern" target="_blank" rel="noopener" class="project-link">
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
+      <!-- Academic Projects -->
+      {academicProjects.length > 0 && (
+        <section class="projects-section">
+          <h2>Academic & Learning Projects</h2>
+          {academicProjects.map((project) => (
+            <div class="project-card">
+              <div class="project-header">
+                <h3 class="project-title">{project.title}</h3>
+                <div class="project-links">
+                  {project.links.map((link) => (
+                    <a href={link.url} target="_blank" rel="noopener" class="project-link" title={link.label}>
+                      {link.type === 'github' && (
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                          <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                      )}
+                      <span class="link-text">{link.label}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <p class="project-description">{project.description}</p>
+              <div class="project-tech">
+                {project.technologies.map((tech) => (
+                  <span class="tech-tag">{tech}</span>
+                ))}
+              </div>
             </div>
-          </div>
-          <p class="project-description">
-            Scripts and configurations for Unix/Linux server administration, including automated deployments, monitoring setups, and system optimization. Focus on reliability and performance.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">Linux</span>
-            <span class="tech-tag">Bash</span>
-            <span class="tech-tag">System Administration</span>
-            <span class="tech-tag">Automation</span>
-          </div>
-        </div>
+          ))}
+        </section>
+      )}
 
-      </section>
-
-      <!-- Academic & Database Projects -->
-      <section class="projects-section">
-        <h2>Academic & Database Projects</h2>
-        
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">C Database Project</h3>
-            <div class="project-links">
-              <a href="https://github.com/beirern" target="_blank" rel="noopener" class="project-link">
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.30 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
+      <!-- Experimental Projects -->
+      {experimentalProjects.length > 0 && (
+        <section class="projects-section">
+          <h2>Experiments & Learning</h2>
+          {experimentalProjects.map((project) => (
+            <div class="project-card">
+              <div class="project-header">
+                <h3 class="project-title">{project.title}</h3>
+                <div class="project-links">
+                  {project.links.map((link) => (
+                    <a href={link.url} target="_blank" rel="noopener" class="project-link" title={link.label}>
+                      {link.type === 'github' && (
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                          <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                      )}
+                      <span class="link-text">{link.label}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <p class="project-description">{project.description}</p>
+              <div class="project-tech">
+                {project.technologies.map((tech) => (
+                  <span class="tech-tag">{tech}</span>
+                ))}
+              </div>
             </div>
-          </div>
-          <p class="project-description">
-            Low-level database implementation in C, focusing on data structures, memory management, and file I/O. Implements basic database operations like indexing, querying, and transaction handling.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">C</span>
-            <span class="tech-tag">Data Structures</span>
-            <span class="tech-tag">File Systems</span>
-            <span class="tech-tag">Algorithms</span>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">University of Washington Projects</h3>
-            <div class="project-links">
-              <a href="https://github.com/beirern" target="_blank" rel="noopener" class="project-link">
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
-            </div>
-          </div>
-          <p class="project-description">
-            Various academic projects completed during computer science studies, including algorithms implementation, software engineering practices, and collaborative development projects.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">Various Languages</span>
-            <span class="tech-tag">Academic</span>
-            <span class="tech-tag">Algorithms</span>
-            <span class="tech-tag">Team Projects</span>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- Experimental & Fun Projects -->
-      <section class="projects-section">
-        <h2>Experimental & Fun Projects</h2>
-        
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">Random Experiments</h3>
-            <div class="project-links">
-              <a href="https://github.com/beirern" target="_blank" rel="noopener" class="project-link">
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
-            </div>
-          </div>
-          <p class="project-description">
-            Collection of experimental coding projects, algorithm implementations, and creative programming challenges. These projects serve as learning opportunities and exploration of new technologies and concepts.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">Various</span>
-            <span class="tech-tag">Experimental</span>
-            <span class="tech-tag">Learning</span>
-            <span class="tech-tag">Creative Coding</span>
-          </div>
-        </div>
-
-      </section>
+          ))}
+        </section>
+      )}
 
       <!-- GitHub Link -->
       <div class="github-section">
@@ -343,6 +289,16 @@ const experimentalProjects = getProjectsByCategory('experimental');
     transition: var(--transition-hover);
     font-size: 0.9rem;
     font-weight: 500;
+  }
+
+  .link-text {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .link-text {
+      display: inline;
+    }
   }
 
   .project-link:hover {
