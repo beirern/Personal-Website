@@ -72,10 +72,6 @@ graph LR
         D
     end
     
-    style A fill:#e3f2fd
-    style E fill:#e8f5e8
-    style B fill:#fff3e0
-    style D fill:#f3e5f5
 ```
 
 The basic idea of a RAG LLM is to use an LLM's ability to understand language and generate sentences/answer and pair it with highly specific context for generating those answers. In this case we would take a users's question, e.g. "What is the best glide speed on the Cessna 172?" and using ONLY documents provided to the LLM it would find the relevant section in one of the documents and answer something like "The best glide speed for a Cessna 172 is 68 knots with all flaps up" and then provide a link to the place where it found this information. If it fails to find relevant information it should respond "I don't know". The key concept here is that we can use a pre-trained LLM (for example gpt-4 or gemini-2.5) and have it only provide answers based on specific input information.
@@ -109,11 +105,6 @@ graph TD
         J
     end
     
-    style A fill:#e3f2fd
-    style E fill:#e3f2fd
-    style J fill:#e8f5e8
-    style D fill:#fff3e0
-    style I fill:#f3e5f5
 ```
 
 This diagram provides more detail for those curious about the specific RAG workflow:
@@ -139,9 +130,9 @@ graph TB
         end
 
         subgraph "Docker Container Stack"
-            Django["🚀 Django Web App<br/>Gunicorn + Django 5.2<br/>Port 8000"]
-            DB["🗃️ PostgreSQL 17<br/>Primary Database<br/>Port 5432"]
-            Vector["📊 ChromaDB Vector Store<br/>Client-Server Mode<br/>Port 5005"]
+            Django["🚀 Django Web App<br/>Gunicorn + Django 5.2<br/>"]
+            DB["🗃️ PostgreSQL 17<br/>Primary Database<br/>"]
+            Vector["📊 ChromaDB Vector Store<br/>Client-Server Mode<br/>"]
             Monitor["🏥 Autoheal Container<br/>Health Monitoring"]
         end
     end
@@ -163,12 +154,6 @@ graph TB
     Monitor --> DB
     Monitor --> Vector
 
-    style Caddy fill:#e1f5fe
-    style Django fill:#f3e5f5
-    style DB fill:#e8f5e8
-    style Vector fill:#fff3e0
-    style S3 fill:#e3f2fd
-    style Gemini fill:#f1f8e9
 ```
 
 The LLM portion of this post talked about generally flow of querying but here is a diagram for visual learners.
@@ -205,10 +190,6 @@ graph TD
     VectorSearch --> ChromaDB
     ContextRetrieval --> Documents
 
-    style User fill:#e3f2fd
-    style LangGraph fill:#f3e5f5
-    style GeminiAPI fill:#e8f5e8
-    style ChromaDB fill:#fff3e0
 ```
 
 Also here is a diagram for the upload document flow for those curious.
@@ -253,12 +234,6 @@ graph TD
         ProcessPipeline --> ErrorHandler["⚠️ Processing Errors<br/>Retry Logic"]
     end
 
-    style User fill:#e3f2fd
-    style VirusScan fill:#ffebee
-    style ProcessPipeline fill:#f3e5f5
-    style S3 fill:#e1f5fe
-    style DB fill:#e8f5e8
-    style Vector fill:#fff3e0
 ```
 
 Overall the tech stack isn't anything crazy. Django was amazing a quick way to get pages running and working while PostgreSQL was chosen as I worked with it before professionally and there isn't a reason to not use it.
