@@ -20,7 +20,11 @@ import { currentWork, previousWork, skillCategories, education, personalInterest
         <div class="work-item featured">
           <div class="work-header">
             <h3 class="job-title">{currentWork.title}</h3>
-            <span class="company">{currentWork.company}</span>
+            {currentWork.companyUrl ? (
+              <a href={currentWork.companyUrl} target="_blank" rel="noopener noreferrer" class="company company-link">{currentWork.company}</a>
+            ) : (
+              <span class="company">{currentWork.company}</span>
+            )}
           </div>
           <div class="work-meta">
             <span class="timeline">{currentWork.timeline}</span>
@@ -44,7 +48,11 @@ import { currentWork, previousWork, skillCategories, education, personalInterest
           <div class="work-item">
             <div class="work-header">
               <h3 class="job-title">{work.title}</h3>
-              <span class="company">{work.company}</span>
+              {work.companyUrl ? (
+                <a href={work.companyUrl} target="_blank" rel="noopener noreferrer" class="company company-link">{work.company}</a>
+              ) : (
+                <span class="company">{work.company}</span>
+              )}
             </div>
             <div class="work-meta">
               <span class="timeline">{work.timeline}</span>
@@ -86,7 +94,11 @@ import { currentWork, previousWork, skillCategories, education, personalInterest
           <div class="work-item">
             <div class="work-header">
               <h3 class="job-title">{edu.title}</h3>
-              <span class="company">{edu.institution}</span>
+              {edu.institutionUrl ? (
+                <a href={edu.institutionUrl} target="_blank" rel="noopener noreferrer" class="company company-link">{edu.institution}</a>
+              ) : (
+                <span class="company">{edu.institution}</span>
+              )}
             </div>
             <div class="work-meta">
               <span class="timeline">{edu.timeline}</span>
@@ -205,6 +217,16 @@ import { currentWork, previousWork, skillCategories, education, personalInterest
   .company {
     color: var(--color-accent);
     font-weight: 600;
+  }
+
+  .company-link {
+    text-decoration: none;
+    transition: var(--transition-hover);
+  }
+
+  .company-link:hover {
+    text-decoration: underline;
+    opacity: 0.8;
   }
 
   .work-meta {

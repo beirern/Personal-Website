@@ -12,7 +12,11 @@ const { currentWork, topSkills } = getWorkPreview();
       <div class="work-item current">
         <div class="work-header">
           <h3 class="job-title">{currentWork.title}</h3>
-          <span class="company">{currentWork.company}</span>
+          {currentWork.companyUrl ? (
+            <a href={currentWork.companyUrl} target="_blank" rel="noopener noreferrer" class="company company-link">{currentWork.company}</a>
+          ) : (
+            <span class="company">{currentWork.company}</span>
+          )}
         </div>
         <div class="work-meta">
           <span class="timeline">{currentWork.timeline}</span>
@@ -85,6 +89,16 @@ const { currentWork, topSkills } = getWorkPreview();
   .company {
     color: var(--color-text-secondary);
     font-weight: 500;
+  }
+
+  .company-link {
+    text-decoration: none;
+    transition: var(--transition-hover);
+  }
+
+  .company-link:hover {
+    text-decoration: underline;
+    opacity: 0.8;
   }
 
   .work-meta {

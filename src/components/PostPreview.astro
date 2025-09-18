@@ -9,15 +9,8 @@ export interface Props {
 const { post } = Astro.props;
 const { slug, data, body } = post;
 
-function createExcerpt(content: string, maxLength: number = 200) {
-	if (data.excerpt) {
-		return data.excerpt;
-	}
-	
-	const stripped = content.replace(/[#*`\[\]()]/g, '');
-	return stripped.length > maxLength 
-		? stripped.substring(0, maxLength) + '...' 
-		: stripped;
+function getExcerpt() {
+	return data.excerpt || 'No excerpt available.';
 }
 ---
 
@@ -31,7 +24,7 @@ function createExcerpt(content: string, maxLength: number = 200) {
 			</span>
 		))}
 	</div>
-	<div class="excerpt" set:html={createExcerpt(body)} />
+	<div class="excerpt">{getExcerpt()}</div>
 	<a class="read-more" href={`/posts/${slug}`}>Read More</a>
 </article>
 

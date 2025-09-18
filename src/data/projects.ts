@@ -13,8 +13,6 @@ export interface Project {
   features?: string[];
   links: ProjectLink[];
   technologies: string[];
-  featured?: boolean;
-  category: 'featured' | 'system-architecture' | 'academic' | 'experimental';
 }
 
 export const projects: Project[] = [
@@ -45,31 +43,26 @@ export const projects: Project[] = [
         label: 'Live Site'
       }
     ],
-    technologies: ['Astro', 'TypeScript', 'CSS3', 'GitHub Actions'],
-    featured: true,
-    category: 'featured'
+    technologies: ['Astro', 'TypeScript', 'GitHub Actions']
   },
   {
-    id: 'basketball-scraper',
-    title: 'Basketball Statistics Scraper',
-    description: 'Data collection and analysis tool for NBA statistics. Scrapes player and team data from various sources, processes it for analysis, and provides insights into player performance trends.',
-    links: [
+    id: 'aviation-docs-ai',
+    title: 'AI RAG to query documents related to General Aviation',
+    description: 'Website hosting a chat bot that uses Retrieval Augmented Generation (RAG) to answer questions about general aviation.',
+    longDescription: 'Modern portfolio and blog built with Astro and TypeScript. Features include dark mode, responsive design, content collections, RSS feeds, and automated GitHub Pages deployment. This very site you\'re viewing!',    links: [
       {
-        type: 'github',
-        url: 'https://github.com/beirern',
-        label: 'GitHub'
+        type: 'live',
+        url: 'https://aviationdocs.net',
+        label: 'Aviation Docs AI'
       }
     ],
-    technologies: ['Python', 'Web Scraping', 'Data Analysis', 'NBA API'],
-    featured: true,
-    category: 'featured'
+    features: [
+      'Upload and parse user uploaded PDF documents',
+      'Chat and see sources used for answers'
+    ],
+    technologies: ['Python', 'Django', 'RAG AI', 'PostgreSQL', 'Docker', 'AWS', 'Vector DB']
   },
 ];
 
-// Helper functions to get projects by category
-export const getFeaturedProjects = () => projects.filter(p => p.featured);
-export const getProjectsByCategory = (category: Project['category']) => 
-  projects.filter(p => p.category === category);
-
-// Get preview projects for homepage (top 3 featured/important)
+// Get preview projects for homepage (first 3 projects)
 export const getProjectsPreview = () => projects.slice(0, 3);
