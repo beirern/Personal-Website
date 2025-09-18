@@ -166,6 +166,25 @@ export const projects: Project[] = [
     ],
     technologies: ['Python', 'A* Algorithm', 'GUI Development', 'Game Development', 'Optimization']
   },
+  {
+    id: 'simple-game',
+    title: 'Simple Game',
+    description: 'Interactive browser-based game built with HTML5 Canvas and JavaScript, hosted on nicolagameoflife.click.',
+    longDescription: 'A simple yet engaging browser-based game developed to explore game development fundamentals using HTML5 Canvas and vanilla JavaScript. Features interactive gameplay mechanics and demonstrates core game programming concepts.',
+    links: [
+      {
+        type: 'github',
+        url: 'https://github.com/beirern/Simple-Game',
+        label: 'GitHub'
+      },
+      {
+        type: 'live',
+        url: 'https://nicolagameoflife.click',
+        label: 'Play Game'
+      }
+    ],
+    technologies: ['JavaScript', 'HTML5 Canvas', 'Game Development', 'Web Technologies']
+  }
 ];
 
 // Get preview projects for homepage (first 3 projects)
