@@ -21,7 +21,7 @@ The code for this project can be found here, https://github.com/beirern/Basketba
 
 Every time I look at this project I am surprised by some of the design choices. For example, there are functions! I don't want to think of their *cyclomatic complexity* but I did try to split the logic up, and to be fair some of the things I had to deal with was very specific. Since Basketball Reference doesn't actually allow datascraping I was downloading HTML files and parsing out HTML tags to find the data so certain functions will be tough to keep simple. I didn't deal with file paths very well, it's clear I expected this to be run on a windows machine and I'm honestly still unsure of how to structure a java project (do I just keep the `.java` file? Do I have to put anything else in the directory?). Also the dataset is **insane**. There are 14 *tsv*'s (why not *csv*s??) per year for a team and we have 30+ years for ~28 teams. This is a bunch of file that you would need to manipulate to put the data together.
 
-BUT! Even with all that.... somehow.... WE HAVE 4 UPVOTES AND SOMEONE ASKED FOR MORE DATA
+BUT! Even with all that.... somehow.... we have 4 upvotes, someone has asked for more data, and we've had 1000's of views. It's so cool to open it up and thing that somehow this project might have helped some people or at least peaked their interest.
 
 ![Screenshot of Kaggle Dataset](/images/kaggle-dataset.png "Screenshot of upvotes and comment of dataset")
 
