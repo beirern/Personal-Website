@@ -36,13 +36,15 @@ export const currentWork: WorkItem = {
   location: "San Francisco, CA",
   description: "Site Reliability Engineer focused on building solutions to keep CI/CD reliable and scalable for 2000+ engineers. Proven track record delivering projects impactful across business units on time, whether for compliance regimes or enhancing developer happiness and productivity.",
   achievements: [
-    "Redesigned CI/CD deployment pipeline for customer-facing applications, achieving 50% more frequent deployments without compromising quality",
-    "Implemented targeted deployments for final customer validation through End-To-End Testing, reducing Sev1 incidents by 40%",
-    "Introduced in-house deployment system that decreased deployment time from 80 minutes to 30 minutes, adopted across 100+ microservices",
-    "Revamped GitLab self-hosted architecture into high availability solution using AWS resources (EC2, RDS, S3, ElastiCache) with Terraform and Ansible",
-    "Developed automated process to scan Docker images for vulnerabilities, ensuring compliance with PCI and FedRAMP standards",
-    "Mentored intern in designing and implementing CLI tool to track commit CI/CD status",
-    "Presented key milestones to cross-functional teams, communicating with hundreds of engineers across the organization"
+    "Reduced deployment time of main application by 62 percent, from 80 minutes to 30 minutes, by migrating to an in-house deployment system and evangelizing its adoption across 100+ microservices (Ruby, Python, Scala) company-wide through effective stakeholder communication, comprehensive on-call documentation, and clear leadership alignment",
+    "Reduced high severity incidents by 40% in one month by designing and implementing a canary deployment system with a rotating Deploy Coordinator role, automated End-To-End (E2E) test execution, and Sentry monitoring for error detection with automatic rollback capabilities",
+    "Enabled true Continuous Delivery by automating deployments to run hourly once CI pipelines passed, increasing deployment frequency from manual on-demand releases to 24+ automated deployments daily",
+    "Scanned 100+ production container images daily across 100+ microservices by building a system using ElasticSearch to inventory running containers and Artifactory Xray for vulnerability scanning, which automatically created JIRA tickets for teams with remediation timelines based on CVE score to comply with PCI and FEDRAMP standards",
+    "Implemented a commit message enforcement system across two source control platforms (Gitlab and Gerrit) using a FastAPI (Python) server with Prometheus monitoring and built compliance dashboards to track adoption metrics, ensuring all commits were linked to JIRA tickets for PCI, SOC2, and FEDRAMP audits",
+    "Mentored an intern in designing and implementing a CLI tool to track a commit's CI/CD status across multiple platforms, reducing team debugging time by 80%. That intern later received a job offer as a software engineer at Palo Alto Networks",
+    "Migrated a single Gitlab server to a High Availability deployment using the Gitlab Environment Toolkit, automating creation of AWS resources (EC2, RDS, ElastiCache, S3, VPC, IAM) via Terraform and provisioning via Ansible, with a phased migration approach to minimize downtime",
+    "Built an automated flaky test detection system that would rerun failed CI builds, identify tests with non-deterministic behavior, and flag them for correction, improving build reliability for a test suite of 80,000+ tests growing at 5,000 tests per month",
+    "Contributed to the open-source Gitlab Environment Toolkit (GET) by submitting a commit that resolved an environment-specific issue, enabling smoother adoption of Gitlab's recommended deployment patterns",
   ],
   current: true
 };
@@ -56,8 +58,8 @@ export const previousWork: WorkItem[] = [
     location: "San Francisco, CA",
     description: "Internship focused on network infrastructure and automation to support remote development during COVID-19.",
     achievements: [
-      "Configured network using VLANs and Site-to-Site VPN to allow 500 developer servers and 3000 developers to access development resources from home",
-      "Automated network configuration and user provisioning with Ruby scripts and Ansible roles"
+      "Allowed all 2000+ developers to connect to in-office lab resources that were inaccessible during COVID shutdown via a Site-to-Site VPN built on Meraki routers",
+      "Automated the VLAN configuration on lab machines using Ruby scripts and Ansible roles which allowed connectivity to out of lab machines"
     ]
   },
   {
@@ -68,9 +70,9 @@ export const previousWork: WorkItem[] = [
     location: "Bellevue, WA",
     description: "Focused on migrating services to Kubernetes and automating AWS infrastructure management.",
     achievements: [
-      "Transitioned API from Amazon ECS to in-house Kubernetes Platform, enabling autoscaling and observability via Grafana and Prometheus",
-      "Cut deployment time by more than 2x through Kubernetes migration",
-      "Engineered automation for AWS resources with Terraform and Python/boto3"
+      "Transitioned the API of one of the products from deploying in Amazon ECS to in-house Kubernetes Platform",
+      "Moving to Kubernetes resulted in enabling autoscaling as well as observability via Grafana and alerting via Prometheus and cut deployment time by more than 2x",
+      "Engineered automation for creation and deployment of AWS resources (EC2/ECS) using python/boto3"
     ]
   },
   {
@@ -81,9 +83,10 @@ export const previousWork: WorkItem[] = [
     location: "Seattle, WA",
     description: "Developed web application and mobile app features for restaurant ordering platform serving 200+ users.",
     achievements: [
-      "Created Node.js endpoints for order fulfillment, payment processing, friend connections, and messaging",
-      "Designed and deployed administration portal for restaurant owners using React Native",
-      "Maintained and optimized React.js front-end improving user experience and performance"
+      "Built endpoints to facilitate order management, social connections, messaging, and payment processing for 200 users using Node.js",
+      "Authored React Native components in a mobile app for restaurant owners to manage menus, incorporating user feedback to improve the interface and functionality",
+      "Created AWS infrastructure to host server and facilitate automated deployments via python/boto3",
+      "Marketed app on University of Washington's campus to grow user base from 20 users to over 200",
     ]
   },
   {

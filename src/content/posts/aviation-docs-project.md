@@ -1,5 +1,5 @@
 ---
-title: My First SaaS
+title: My First Aviation Project
 date: 2025-09-09
 tags: [aviation, SaaS, AI]
 excerpt: My First time building a full-stack website that is meant to help pilots study and find FAA regulations!
