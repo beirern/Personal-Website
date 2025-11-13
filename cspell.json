@@ -45,6 +45,8 @@
     "Gunicorn",
     "Autoheal",
     "Agentic",
+    "FEDRAMP",
+    "Palo",
     "pathfinding",
     "boto",
     "Sammamish",
