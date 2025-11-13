@@ -55,6 +55,11 @@ export const projects: Project[] = [
         type: 'live',
         url: 'https://aviationdocs.net',
         label: 'Aviation Docs AI'
+      },
+      {
+        type: 'demo',
+        url: '/posts/aviation-docs-project',
+        label: 'Blog Post'
       }
     ],
     features: [
